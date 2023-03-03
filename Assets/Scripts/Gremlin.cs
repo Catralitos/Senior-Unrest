@@ -11,12 +11,16 @@ public class Gremlin : MonoBehaviour
     
     public bool chaser;
     public LayerMask obstacles;
- 
+    
     public float timeToMove = 0.2f;
+
+    public bool isMoving;
     private Vector3 _origPos, _targetPos;
     
     public void Move(Vector3 playerPos)
     {
+        if (isMoving) return;
+        
         Vector3[] fourDirections = { Vector3.up, Vector3.down, Vector3.left, Vector3.right };
 
         List<Vector3> possibleMoves = new List<Vector3>();
@@ -38,11 +42,11 @@ public class Gremlin : MonoBehaviour
 
         if (chaser)
         {
-            possibleMoves = possibleMoves.OrderBy(x => getDistanceInTiles(transform.position + x, playerPos)).ToList();
+            possibleMoves = possibleMoves.OrderBy(x => GetDistanceInTiles(transform.position + x, playerPos)).ToList();
         }
         else
         {
-            possibleMoves = possibleMoves.OrderByDescending(x => getDistanceInTiles(transform.position + x, playerPos)).ToList();
+            possibleMoves = possibleMoves.OrderByDescending(x => GetDistanceInTiles(transform.position + x, playerPos)).ToList();
         }
 
         StartCoroutine(MoveGremlin(possibleMoves[0]));
@@ -51,23 +55,31 @@ public class Gremlin : MonoBehaviour
     private IEnumerator MoveGremlin(Vector3 direction)
     {
 
+        isMoving = true;
+        
         float elapsedTime = 0.0f;
 
         _origPos = transform.position;
         _targetPos = _origPos + direction;
 
-        while(elapsedTime < timeToMove)
+        GetComponent<Rigidbody2D>().MovePosition(_targetPos * timeToMove * Time.deltaTime);
+
+        /*while(elapsedTime < timeToMove)
         {
-            transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / timeToMove));
+            //transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / timeToMove));
+            GetComponent<Rigidbody2D>().MovePosition(_targetPos * timeToMove * Time.deltaTime);
             elapsedTime += Time.deltaTime;
             yield return null;
-        }
+        }*/
 
         transform.position = _targetPos;
-        
+
+        isMoving = false;
+        yield return null;
+
     }
 
-    private int getDistanceInTiles(Vector3 pos1, Vector3 pos2)
+    private int GetDistanceInTiles(Vector3 pos1, Vector3 pos2)
     {
         return Mathf.RoundToInt(Math.Abs(pos1.x - pos2.x) + Math.Abs(pos1.y - pos2.y));
     }

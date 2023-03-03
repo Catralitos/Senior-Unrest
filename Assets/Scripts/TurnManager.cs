@@ -27,6 +27,7 @@ public class TurnManager : MonoBehaviour
 
     private int _turnsBeforeSleepDrop;
     public List<Gremlin> _enemiesInMap;
+    public List<Trap> _trapsInMap;
 
     public void ProcessTurn(Vector3 playerPos)
     {
@@ -34,5 +35,32 @@ public class TurnManager : MonoBehaviour
         {
             g.Move(playerPos);
         }
+
+        List<Trap> toRemove = new List<Trap>();
+        foreach (Trap t in _trapsInMap)
+        {
+            if (t.hasGremlin)
+            {
+                _enemiesInMap.Remove(t.caughtGremlin);
+                Destroy(t.caughtGremlin.gameObject);
+                toRemove.Add(t);
+            }
+        }
+
+        foreach (Trap t in toRemove)
+        {
+            _trapsInMap.Remove(t);
+            Destroy(t.gameObject);
+        }
+    }
+
+    public bool CanMove()
+    {
+        foreach (Gremlin g in _enemiesInMap)
+        {
+            if (g.isMoving) return false;
+        }
+
+        return true;
     }
 }

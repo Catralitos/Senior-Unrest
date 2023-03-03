@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (_isMoving) return;
+        if (_isMoving || !TurnManager.Instance.CanMove()) return;
         if (Input.GetKey(KeyCode.W))
             StartCoroutine(MovePlayer(Vector3.up));
         if (Input.GetKey(KeyCode.A))
@@ -41,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.position = _targetPos;
-        TurnManager.Instance.ProcessTurn(transform.position);
         
         _isMoving = false;
     }
