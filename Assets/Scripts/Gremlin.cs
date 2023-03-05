@@ -61,16 +61,13 @@ public class Gremlin : MonoBehaviour
 
         _origPos = transform.position;
         _targetPos = _origPos + direction;
-
-        GetComponent<Rigidbody2D>().MovePosition(_targetPos * timeToMove * Time.deltaTime);
-
-        /*while(elapsedTime < timeToMove)
+        
+        while(elapsedTime < timeToMove)
         {
-            //transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / timeToMove));
-            GetComponent<Rigidbody2D>().MovePosition(_targetPos * timeToMove * Time.deltaTime);
+            transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / timeToMove));
             elapsedTime += Time.deltaTime;
             yield return null;
-        }*/
+        }
 
         transform.position = _targetPos;
 
@@ -79,7 +76,7 @@ public class Gremlin : MonoBehaviour
 
     }
 
-    private int GetDistanceInTiles(Vector3 pos1, Vector3 pos2)
+    private static int GetDistanceInTiles(Vector3 pos1, Vector3 pos2)
     {
         return Mathf.RoundToInt(Math.Abs(pos1.x - pos2.x) + Math.Abs(pos1.y - pos2.y));
     }
