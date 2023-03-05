@@ -30,9 +30,7 @@ namespace Player
 
         private void MoveTrap(int index)
         {
-            Debug.Log("Entrou no move");
             Collider2D col = Physics2D.OverlapBox(transform.position, new Vector2(1, 1), 0, traps);
-            Debug.Log(col);
             if (col != null && !currentTraps[index])
             {
                 TurnManager.Instance.PickUpTrap(col.gameObject);

@@ -12,13 +12,13 @@ namespace Player
         private void Update()
         {
             if (!TurnManager.Instance.CanMove()) return;
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
                 StartCoroutine(MovePlayer(Vector3.up));
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A))
                 StartCoroutine(MovePlayer(Vector3.left));
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.S))
                 StartCoroutine(MovePlayer(Vector3.down));
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.D))
                 StartCoroutine(MovePlayer(Vector3.right));
         }
 

@@ -102,7 +102,7 @@ MonoBehaviour:
   chaser: 0
   obstacles:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 1472
   timeToMove: 0.2
   isMoving: 0
 --- !u!61 &4464876635556058038

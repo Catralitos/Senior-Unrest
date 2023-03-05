@@ -70,6 +70,12 @@ public class TurnManager : MonoBehaviour
         _trapsInMap.Add(instantiatedTrap.GetComponent<Trap>());
     }
 
+    public void CatchGremlin(GameObject gremlinObject)
+    {
+        _enemiesInMap.Remove(gremlinObject.GetComponent<Gremlin>());
+        Destroy(gremlinObject);
+    }
+    
     public bool CanMove()
     {
         if (PlayerManager.Instance.movement.IsMoving) return false;

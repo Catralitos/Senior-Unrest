@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Player
@@ -26,11 +25,15 @@ namespace Player
 
         [HideInInspector] public PlayerHealth health;
         [HideInInspector] public PlayerMovement movement;
+        [HideInInspector] public PlayerTraps traps;
+        [HideInInspector] public PlayerCatch catcher;
 
         private void Start()
         {
             health = GetComponent<PlayerHealth>();
             movement = GetComponent<PlayerMovement>();
+            traps = GetComponent<PlayerTraps>();
+            catcher = GetComponent<PlayerCatch>();
         }
     }
 }
