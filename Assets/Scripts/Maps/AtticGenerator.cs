@@ -13,12 +13,15 @@ namespace Maps
         [SerializeField] private int _maxWidth;
         [SerializeField] private int _maxHeight;
         [SerializeField] private int _cellsToRemove;
+
+        [SerializeField] private bool _shrink;
         
         [ContextMenu("Generate Attic")]
         public void Generate()
         {
             Attic attic = new Attic(_maxWidth, _maxHeight);
             attic.DigCorridors(_cellsToRemove);
+            if (_shrink) attic.Shrink();
             _wallsTilemap.ClearAllTiles();
             _groundTilemap.ClearAllTiles();
             foreach (GridCell<bool> cell in attic.Grid.Cells)
