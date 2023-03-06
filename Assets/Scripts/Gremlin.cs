@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,23 +13,28 @@ public class Gremlin : MonoBehaviour
     public bool chaser;
     public LayerMask obstacles;
     
-    public float timeToMove = 0.2f;
-
-    public bool isMoving;
+    public bool IsMoving { get; private set; }
     private Vector3 _origPos, _targetPos;
     
     public void Move(Vector3 playerPos)
     {
-        if (isMoving) return;
-        
-        Vector3[] fourDirections = { Vector3.up, Vector3.down, Vector3.left, Vector3.right };
+        if (IsMoving) return;
+
+        Vector3[] fourDirections = {Vector3.up, Vector3.down, Vector3.left, Vector3.right};
 
         List<Vector3> possibleMoves = new List<Vector3>();
 
         foreach (Vector3 direction in fourDirections)
         {
-            if (Physics2D.OverlapBox(playerPos + direction, new Vector2(1,1), 0, obstacles) == null)
+            if (Physics2D.OverlapBox(transform.position + direction, new Vector2(0.5f,0.5f), 0, obstacles) == null)
             {
+                //if player is directly adjacent to gremlin, a.k.a, didn't move
+                if (Math.Abs((transform.position + direction).x - playerPos.x) <= 0.1f &&
+                      Math.Abs((transform.position + direction).y - playerPos.y) <= 0.1f)
+                {
+                    StartCoroutine(MoveGremlin(Vector3.zero));
+                    return;
+                }
                 possibleMoves.Add(direction);
             }
         }
@@ -55,23 +61,23 @@ public class Gremlin : MonoBehaviour
     private IEnumerator MoveGremlin(Vector3 direction)
     {
 
-        isMoving = true;
+        IsMoving = true;
         
         float elapsedTime = 0.0f;
 
         _origPos = transform.position;
         _targetPos = _origPos + direction;
         
-        while(elapsedTime < timeToMove)
+        while(elapsedTime < TurnManager.Instance.unitTimeToMove)
         {
-            transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / timeToMove));
+            transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / TurnManager.Instance.unitTimeToMove));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         transform.position = _targetPos;
 
-        isMoving = false;
+        IsMoving = false;
         yield return null;
 
     }

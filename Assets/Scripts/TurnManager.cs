@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
@@ -24,8 +25,15 @@ public class TurnManager : MonoBehaviour
 
     #endregion
     
-    public int turnsForSleepDrop;
+    public bool ProcessingTurn { get; private set; }
 
+    public float unitTimeToMove = 0.2f;
+    
+    public int turnsForSleepDrop;
+    private int _currentTurn;
+    public int gremlinDamage;
+    public int sleepDamage;
+    
     private int _turnsBeforeSleepDrop;
     public List<Gremlin> _enemiesInMap;
     public List<Trap> _trapsInMap;
@@ -33,30 +41,54 @@ public class TurnManager : MonoBehaviour
     public GameObject chaserPrefab;
     public GameObject runnerPrefab;
     public GameObject trapPrefab;
-    
+
     public void ProcessTurn(Vector3 playerPos)
     {
-        foreach (Gremlin g in _enemiesInMap)
-        {
-            g.Move(playerPos);
-        }
+        if (ProcessingTurn) return;
+        ProcessingTurn = true;
+        StartCoroutine(TurnCoroutine(playerPos));
+    }
 
-        List<Trap> toRemove = new List<Trap>();
-        foreach (Trap t in _trapsInMap)
-        {
-            if (t.hasGremlin)
+    public IEnumerator TurnCoroutine(Vector3 playerPos){
+        
+            foreach (Gremlin g in _enemiesInMap)
             {
-                _enemiesInMap.Remove(t.caughtGremlin);
-                Destroy(t.caughtGremlin.gameObject);
-                toRemove.Add(t);
+                g.Move(playerPos);
             }
-        }
 
-        foreach (Trap t in toRemove)
-        {
-            _trapsInMap.Remove(t);
-            Destroy(t.gameObject);
-        }
+            yield return new WaitForSeconds(unitTimeToMove);
+            
+            List<Trap> toRemove = new List<Trap>();
+            foreach (Trap t in _trapsInMap)
+            {
+                if (t.hasGremlin)
+                {
+                    _enemiesInMap.Remove(t.caughtGremlin);
+                    Destroy(t.caughtGremlin.gameObject);
+                    toRemove.Add(t);
+                }
+            }
+         
+            foreach (Trap t in toRemove)
+            {
+                _trapsInMap.Remove(t);
+                Destroy(t.gameObject);
+            }
+
+            int surroundingGremlins = PlayerManager.Instance.health.CheckDamage();
+            for (int i = 0; i < surroundingGremlins; i++)
+            {
+                PlayerManager.Instance.health.DealDamage(gremlinDamage);
+            }
+         
+            _currentTurn++;
+            if (_currentTurn == turnsForSleepDrop)
+            {
+                PlayerManager.Instance.health.DealDamage(sleepDamage);
+                _currentTurn = 0;
+            }
+            
+            ProcessingTurn = false;
     }
     
     public void PickUpTrap(GameObject trapObject){
@@ -78,12 +110,16 @@ public class TurnManager : MonoBehaviour
     
     public bool CanMove()
     {
-        if (PlayerManager.Instance.movement.IsMoving) return false;
+        return !ProcessingTurn && !EntitiesAreMoving();
+    }
+
+    private bool EntitiesAreMoving()
+    {
         foreach (Gremlin g in _enemiesInMap)
         {
-            if (g.isMoving) return false;
+            if (g.IsMoving) return true;
         }
 
-        return true;
+        return PlayerManager.Instance.movement.IsMoving;
     }
 }

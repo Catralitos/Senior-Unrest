@@ -16,19 +16,36 @@ namespace Player
             currentHealth = maxHealth;
         }
 
-        public bool CheckDamage()
+        public int CheckDamage()
         {
-            Vector3[] fourDirections = { Vector3.up, Vector3.down, Vector3.left, Vector3.right };
+            int c = 0;
             
+            Vector3[] fourDirections = { Vector3.up, Vector3.down, Vector3.left, Vector3.right };
+
             foreach (Vector3 direction in fourDirections)
             {
-                if (Physics2D.OverlapBox(transform.position + direction, new Vector2(1,1), 0, damageables) != null)
+                if (Physics2D.OverlapBox(transform.position + direction, new Vector2(0.5f,0.5f), 0, damageables) != null)
                 {
-                    return true;
+                    c++;
                 }
             }
 
-            return false;
+            return c;
+        }
+
+        public void DealDamage(int damage)
+        {
+            currentHealth = Math.Clamp(currentHealth - damage, 0, maxHealth);
+            if (currentHealth == 0)
+            {
+                Die();
+            }
+        }
+
+        private void Die()
+        {
+            //TODO implementar morte a sério
+            Destroy(gameObject);
         }
     }
 }

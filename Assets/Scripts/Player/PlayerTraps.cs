@@ -30,7 +30,7 @@ namespace Player
 
         private void MoveTrap(int index)
         {
-            Collider2D col = Physics2D.OverlapBox(transform.position, new Vector2(1, 1), 0, traps);
+            Collider2D col = Physics2D.OverlapBox(transform.position, new Vector2(0.5f, 0.5f), 0, traps);
             if (col != null && !currentTraps[index])
             {
                 TurnManager.Instance.PickUpTrap(col.gameObject);

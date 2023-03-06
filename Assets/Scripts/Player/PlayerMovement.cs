@@ -1,14 +1,15 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        public float timeToMove = 0.2f;
         public bool IsMoving  {get; private set; }
         private Vector3 _origPos, _targetPos;
-    
+        public LayerMask obstacles;
+        
         private void Update()
         {
             if (!TurnManager.Instance.CanMove()) return;
@@ -31,17 +32,24 @@ namespace Player
 
             _origPos = transform.position;
             _targetPos = _origPos + direction;
-            TurnManager.Instance.ProcessTurn(_targetPos);
 
-            while(elapsedTime < timeToMove)
+            if (Physics2D.OverlapBox(_targetPos, new Vector2(0.5f, 0.5f), 0, obstacles) != null)
             {
-                transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / timeToMove));
+                IsMoving = false;
+                yield break;
+            }
+
+            TurnManager.Instance.ProcessTurn(_targetPos);
+            
+            while(elapsedTime < TurnManager.Instance.unitTimeToMove)
+            {
+                transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / TurnManager.Instance.unitTimeToMove));
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
             transform.position = _targetPos;
-        
+            //TurnManager.Instance.ProcessTurn(_targetPos);
             IsMoving = false;
         }
     }

@@ -18,7 +18,7 @@ namespace Player
             
             foreach (Vector3 direction in fourDirections)
             {
-                Collider2D col = Physics2D.OverlapBox(transform.position + direction, new Vector2(1, 1), 0, runners);
+                Collider2D col = Physics2D.OverlapBox(transform.position + direction, new Vector2(0.5f, 0.5f), 0, runners);
                 if (col)
                 {
                     TurnManager.Instance.CatchGremlin(col.gameObject);
