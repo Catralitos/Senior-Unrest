@@ -11,11 +11,24 @@ namespace Maps
     public int Width { get; }
     public int Height { get; }
 
+    public delegate T InitFunction(int x, int y);
+    
     public Grid(int width, int height)
     {
       Cells = new T[width * height];
       Width = width;
       Height = height;
+    }
+    
+    public Grid(int width, int height, InitFunction init) : this(width, height)
+    {
+      for (int x = 0; x < width; x++)
+      {
+        for (int y = 0; y < height; y++)
+        {
+          Set(x,y,init(x,y));
+        }
+      }
     }
 
     public int CoordinatesToIndex(int x, int y)
