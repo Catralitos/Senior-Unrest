@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3188885416419527589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3188885416419527591}
+  - component: {fileID: 4139482379852960799}
+  - component: {fileID: 3188885416419527588}
+  - component: {fileID: 8714292202567216164}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3188885416419527591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3188885416419527589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4139482379852960799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3188885416419527589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb957bd12873d14a9c24caf4d746500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 6094105347142986415, guid: 1b40613adee090349b506d94f37a66bd, type: 3}
+  chaserPrefab: {fileID: 5363594163669928714, guid: b384ecb27df89a340a014c87e1422234, type: 3}
+  runnerPrefab: {fileID: 4464876635556058035, guid: 1cc00a87a56fbc4499347bcbc871118b, type: 3}
+  trapPrefab: {fileID: 6328820565560180562, guid: dca27fff806698f4c9d008c8897d31dd, type: 3}
+  spawnables:
+    serializedVersion: 2
+    m_Bits: 1984
+  startingWidth: 10
+  startingHeight: 10
+  startingCellsToRemove: 75
+  startingRunners: 1
+  startingChasers: 1
+  startingTraps: 2
+--- !u!114 &3188885416419527588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3188885416419527589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309abd7efa454bae997d2b58f85d03ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wallsTilemap: {fileID: 0}
+  _groundTilemap: {fileID: 0}
+  _wallTiles: {fileID: 11400000, guid: c40e2ff62d0188cbaa9e263b8da767fa, type: 2}
+  _groundTiles: {fileID: 11400000, guid: c40e2ff62d0188cbaa9e263b8da767fa, type: 2}
+  _maxWidth: 7
+  _maxHeight: 7
+  _cellsToRemove: 10
+  _shrink: 0
+--- !u!114 &8714292202567216164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3188885416419527589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cfac1211a9d5441a2ce335f03852af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitTimeToMove: 0.2
+  turnsForSleepDrop: 10
+  gremlinDamage: 5
+  sleepDamage: 5

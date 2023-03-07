@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
@@ -35,13 +36,25 @@ public class TurnManager : MonoBehaviour
     public int sleepDamage;
     
     private int _turnsBeforeSleepDrop;
-    public List<Gremlin> _enemiesInMap;
-    public List<Trap> _trapsInMap;
+    private List<Gremlin> _enemiesInMap;
+    private List<Trap> _trapsInMap;
 
-    public GameObject chaserPrefab;
-    public GameObject runnerPrefab;
-    public GameObject trapPrefab;
+    private void Start()
+    {
+        _enemiesInMap = new List<Gremlin>();
+        _trapsInMap = new List<Trap>();
+    }
 
+    public void AddGremlin(Gremlin g)
+    {
+        _enemiesInMap.Add(g);
+    }
+
+    public void AddTrap(Trap t)
+    {
+        _trapsInMap.Add(t);
+    }
+    
     public void ProcessTurn(Vector3 playerPos)
     {
         if (ProcessingTurn) return;
@@ -49,7 +62,7 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(TurnCoroutine(playerPos));
     }
 
-    public IEnumerator TurnCoroutine(Vector3 playerPos){
+    private IEnumerator TurnCoroutine(Vector3 playerPos){
         
             foreach (Gremlin g in _enemiesInMap)
             {
@@ -98,7 +111,7 @@ public class TurnManager : MonoBehaviour
     
     public void PlaceTrap(Vector3 position)
     {
-        GameObject instantiatedTrap = Instantiate(trapPrefab, position, Quaternion.identity);
+        GameObject instantiatedTrap = Instantiate(GameManager.Instance.trapPrefab, position, Quaternion.identity);
         _trapsInMap.Add(instantiatedTrap.GetComponent<Trap>());
     }
 
@@ -107,7 +120,22 @@ public class TurnManager : MonoBehaviour
         _enemiesInMap.Remove(gremlinObject.GetComponent<Gremlin>());
         Destroy(gremlinObject);
     }
-    
+
+    public void Reset()
+    {
+        foreach (Gremlin g in _enemiesInMap)
+        {
+            Destroy(g.gameObject);
+        }
+        _enemiesInMap.Clear();
+        
+        foreach (Trap t in _trapsInMap)
+        {
+            Destroy(t.gameObject);
+        }
+        _trapsInMap.Clear();
+    }
+
     public bool CanMove()
     {
         return !ProcessingTurn && !EntitiesAreMoving();
@@ -115,6 +143,7 @@ public class TurnManager : MonoBehaviour
 
     private bool EntitiesAreMoving()
     {
+
         foreach (Gremlin g in _enemiesInMap)
         {
             if (g.IsMoving) return true;
