@@ -82,8 +82,7 @@ public class GameManager : MonoBehaviour
 
             break;
         }
-
-        /*
+        
         int chasersSpawned = 0, runnersSpawned = 0, trapsSpawned = 0;
         while (chasersSpawned < _currentChasers)
         {
@@ -124,8 +123,7 @@ public class GameManager : MonoBehaviour
                 TurnManager.Instance.AddTrap(trap.GetComponent<Trap>());
                 trapsSpawned++;
             }
-        }*/
+        }
     }
 
-    
 }

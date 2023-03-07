@@ -39,7 +39,7 @@ public class TurnManager : MonoBehaviour
     private List<Gremlin> _enemiesInMap;
     private List<Trap> _trapsInMap;
 
-    private void Start()
+    public void Start()
     {
         _enemiesInMap = new List<Gremlin>();
         _trapsInMap = new List<Trap>();
@@ -132,6 +132,21 @@ public class TurnManager : MonoBehaviour
         foreach (Trap t in _trapsInMap)
         {
             Destroy(t.gameObject);
+        }
+        _trapsInMap.Clear();
+    }
+    
+    public void ResetImmediate()
+    {
+        foreach (Gremlin g in _enemiesInMap)
+        {
+            DestroyImmediate(g.gameObject);
+        }
+        _enemiesInMap.Clear();
+        
+        foreach (Trap t in _trapsInMap)
+        {
+            DestroyImmediate(t.gameObject);
         }
         _trapsInMap.Clear();
     }
