@@ -45,7 +45,8 @@ namespace Player
         private void Die()
         {
             //TODO implementar morte a sério
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            Debug.Log("I DIED!!!!");
         }
     }
 }
