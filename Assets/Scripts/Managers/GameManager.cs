@@ -33,7 +33,8 @@ namespace Managers
         public GameObject chaserPrefab;
         public GameObject runnerPrefab;
         public GameObject trapPrefab;
-
+        public GameObject coin;
+        
         public LayerMask spawnables;
         private AtticGenerator _atticGenerator;
 
@@ -43,7 +44,8 @@ namespace Managers
         public int startingRunners;
         public int startingChasers;
         public int startingTraps;
-
+        public int startingCoins;
+        
         private int _currentLevel;
         private int _currentWidth;
         private int _currentHeight;
@@ -51,6 +53,7 @@ namespace Managers
         private int _currentRunners;
         private int _currentChasers;
         private int _currentTraps;
+        private int _currentCoins;
 
         private void Start()
         {
@@ -62,6 +65,8 @@ namespace Managers
             _currentRunners = startingRunners;
             _currentChasers = startingChasers;
             _currentTraps = startingTraps;
+            _currentCoins = startingCoins;
+            //TODO tirar isto daqui, não pode ser no start
             StartLevel();
         }
 
@@ -86,8 +91,8 @@ namespace Managers
 
                 break;
             }
-        
-            int chasersSpawned = 0, runnersSpawned = 0, trapsSpawned = 0;
+
+            int chasersSpawned = 0, runnersSpawned = 0, trapsSpawned = 0, coinsSpawned = 0;
             while (chasersSpawned < _currentChasers)
             {
                 int randomPosition = Random.Range(0,g.Cells.Length);
@@ -126,6 +131,19 @@ namespace Managers
                     GameObject trap = Instantiate(trapPrefab, spawnPosition, Quaternion.identity);
                     TurnManager.Instance.AddTrap(trap.GetComponent<Trap>());
                     trapsSpawned++;
+                }
+            }
+            
+            while (coinsSpawned < _currentCoins)
+            {
+                int randomPosition = Random.Range(0,g.Cells.Length);
+                GridCell<bool> cell = g.Get(randomPosition);
+                Vector2Int cellCoordinates = g.GetCoordinates(cell);
+                Vector3 spawnPosition = new Vector3(cellCoordinates.x, cellCoordinates.y, 0);
+                if (!cell.Value && Physics2D.OverlapBox(spawnPosition, new Vector2(0.5f, 0.5f), 0, spawnables) == null)
+                {
+                    GameObject coin = Instantiate(this.coin, spawnPosition, Quaternion.identity);
+                    coinsSpawned++;
                 }
             }
         }

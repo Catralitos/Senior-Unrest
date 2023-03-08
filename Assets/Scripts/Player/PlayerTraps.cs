@@ -14,6 +14,10 @@ namespace Player
         private void Start()
         {
             currentTraps = new bool[trapSlots];
+            for (int i = 0; i < currentTraps.Length; i++)
+            {
+                currentTraps[i] = false;
+            }
         }
 
         private void Update()

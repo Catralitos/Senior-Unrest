@@ -1,4 +1,3 @@
-using Enemies;
 using Extensions;
 using Player;
 using UnityEngine;

@@ -314,7 +314,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 7
+      m_TileSpriteIndex: 10
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -779,14 +779,14 @@ Tilemap:
     m_Data: {fileID: 21300018, guid: 52073a08e387e754fc63c9c25f84a8fb, type: 3}
   - m_RefCount: 18
     m_Data: {fileID: 21300010, guid: 52073a08e387e754fc63c9c25f84a8fb, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 21300056, guid: 52073a08e387e754fc63c9c25f84a8fb, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: 21300044, guid: 52073a08e387e754fc63c9c25f84a8fb, type: 3}
   - m_RefCount: 5
@@ -940,7 +940,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -970,7 +970,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 5
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1150,7 +1150,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 4
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1441,22 +1441,22 @@ Tilemap:
   - m_RefCount: 50
     m_Data: {fileID: 11400000, guid: c40e2ff62d0188cbaa9e263b8da767fa, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: 21300004, guid: 41343acc0233246eef009d488754a1ec, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: 21300020, guid: 41343acc0233246eef009d488754a1ec, type: 3}
   - m_RefCount: 12
     m_Data: {fileID: 21300014, guid: 41343acc0233246eef009d488754a1ec, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: 41343acc0233246eef009d488754a1ec, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300066, guid: 41343acc0233246eef009d488754a1ec, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300048, guid: 41343acc0233246eef009d488754a1ec, type: 3}
-  - m_RefCount: 2
-    m_Data: {fileID: 21300012, guid: 41343acc0233246eef009d488754a1ec, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300066, guid: 41343acc0233246eef009d488754a1ec, type: 3}
+  - m_RefCount: 2
+    m_Data: {fileID: 21300012, guid: 41343acc0233246eef009d488754a1ec, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300048, guid: 41343acc0233246eef009d488754a1ec, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 21300010, guid: 41343acc0233246eef009d488754a1ec, type: 3}
   - m_RefCount: 1
@@ -1475,8 +1475,8 @@ Tilemap:
     m_Data: {fileID: 21300036, guid: 41343acc0233246eef009d488754a1ec, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300016, guid: 41343acc0233246eef009d488754a1ec, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300004, guid: 41343acc0233246eef009d488754a1ec, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300032, guid: 41343acc0233246eef009d488754a1ec, type: 3}
   - m_RefCount: 1
@@ -1783,12 +1783,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
+      propertyPath: coin
+      value: 
+      objectReference: {fileID: 6328820565560180562, guid: fb21192444c22b043b244b0107d51c4a, type: 3}
+    - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
+      propertyPath: startingCoins
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
       propertyPath: startingWidth
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
       propertyPath: startingHeight
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
+      propertyPath: spawnables.m_Bits
+      value: 4032
       objectReference: {fileID: 0}
     - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
       propertyPath: startingCellsToRemove
