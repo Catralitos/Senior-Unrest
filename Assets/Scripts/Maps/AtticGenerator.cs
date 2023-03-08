@@ -24,7 +24,7 @@ namespace Maps
         public void Generate()
         {
             Attic = new Attic(_maxWidth, _maxHeight);
-            Attic.DigCorridors(Mathf.Clamp(_cellsToRemove, 1, _maxWidth + _maxWidth + _maxHeight - 1 + _maxHeight - 1));
+            Attic.DigCorridors(Mathf.Clamp(_cellsToRemove, 1, (_maxWidth * _maxHeight) - (_maxWidth + _maxWidth + _maxHeight - 1 + _maxHeight - 1)));
             if (_shrink) Attic.Shrink();
             _wallsTilemap.ClearAllTiles();
             _groundTilemap.ClearAllTiles();
@@ -44,7 +44,7 @@ namespace Maps
         public void Generate(int width, int height, int cellsToRemove)
         {
             Attic = new Attic(width, height);
-            Attic.DigCorridors(Mathf.Clamp(cellsToRemove, 1, _maxWidth + _maxWidth + _maxHeight - 1 + _maxHeight - 1));
+            Attic.DigCorridors(Mathf.Clamp(cellsToRemove, 1, (width * height) - (width + width + height - 1 + height - 1)));
             if (_shrink) Attic.Shrink();
             _wallsTilemap.ClearAllTiles();
             _groundTilemap.ClearAllTiles();

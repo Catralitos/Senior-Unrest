@@ -41,17 +41,19 @@ public class TurnManager : MonoBehaviour
 
     public void Start()
     {
-        _enemiesInMap = new List<Gremlin>();
-        _trapsInMap = new List<Trap>();
+        _enemiesInMap ??= new List<Gremlin>();
+        _trapsInMap ??= new List<Trap>();
     }
 
     public void AddGremlin(Gremlin g)
     {
+        _enemiesInMap ??= new List<Gremlin>();
         _enemiesInMap.Add(g);
     }
 
     public void AddTrap(Trap t)
     {
+        _trapsInMap ??= new List<Trap>();
         _trapsInMap.Add(t);
     }
     
