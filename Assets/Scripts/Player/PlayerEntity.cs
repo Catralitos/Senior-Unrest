@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerEntity : MonoBehaviour
     {
         #region SingleTon
 
-        public static PlayerManager Instance { get; private set; }
+        public static PlayerEntity Instance { get; private set; }
 
         private void Awake()
         {
@@ -27,13 +27,15 @@ namespace Player
         [HideInInspector] public PlayerMovement movement;
         [HideInInspector] public PlayerTraps traps;
         [HideInInspector] public PlayerCatch catcher;
-
+        [HideInInspector] public PlayerInventory inventory;
+        
         private void Start()
         {
             health = GetComponent<PlayerHealth>();
             movement = GetComponent<PlayerMovement>();
             traps = GetComponent<PlayerTraps>();
             catcher = GetComponent<PlayerCatch>();
+            inventory = GetComponent<PlayerInventory>();
         }
     }
 }
