@@ -49,7 +49,6 @@ namespace Player
             }
 
             transform.position = _targetPos;
-            //TurnManager.Instance.ProcessTurn(_targetPos);
             IsMoving = false;
         }
     }

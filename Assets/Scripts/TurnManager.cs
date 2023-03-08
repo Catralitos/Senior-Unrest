@@ -138,21 +138,6 @@ public class TurnManager : MonoBehaviour
         _trapsInMap.Clear();
     }
     
-    public void ResetImmediate()
-    {
-        foreach (Gremlin g in _enemiesInMap)
-        {
-            DestroyImmediate(g.gameObject);
-        }
-        _enemiesInMap.Clear();
-        
-        foreach (Trap t in _trapsInMap)
-        {
-            DestroyImmediate(t.gameObject);
-        }
-        _trapsInMap.Clear();
-    }
-
     public bool CanMove()
     {
         return !ProcessingTurn && !EntitiesAreMoving();

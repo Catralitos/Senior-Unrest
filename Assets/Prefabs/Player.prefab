@@ -119,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacles:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 448
 --- !u!114 &6094105347142986408
 MonoBehaviour:
   m_ObjectHideFlags: 0
