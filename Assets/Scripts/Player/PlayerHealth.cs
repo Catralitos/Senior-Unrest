@@ -42,6 +42,11 @@ namespace Player
             }
         }
 
+        public void RestoreHealth(int heal)
+        {
+            currentHealth = Math.Clamp(currentHealth + heal, 0, maxHealth);
+        }
+
         private void Die()
         {
             //TODO implementar morte a sério

@@ -143,7 +143,7 @@ namespace Managers
     
         public bool CanMove()
         {
-            return !ProcessingTurn && !EntitiesAreMoving();
+            return !ProcessingTurn && !EntitiesAreMoving() && !GameManager.Instance.ShopIsOpen;
         }
 
         private bool EntitiesAreMoving()

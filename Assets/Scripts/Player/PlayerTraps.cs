@@ -25,16 +25,6 @@ namespace Player
             if (!TurnManager.Instance.CanMove()) return;
             if (Input.GetKeyDown(KeyCode.E))
                 MoveTrap();
-            /*if (Input.GetKeyDown(KeyCode.Alpha1))
-                MoveTrap(0);
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-                MoveTrap(1);
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-                MoveTrap(2);
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-                MoveTrap(3);
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-                MoveTrap(4);*/
         }
 
         private void MoveTrap()
@@ -53,7 +43,12 @@ namespace Player
             }
         }
 
-        private int CurrentAmountOfTraps()
+        public void AddTrap()
+        {
+            currentTraps[FirstFreeIndex()] = true;
+        }
+
+        public int CurrentAmountOfTraps()
         {
             return currentTraps.Count(trap => trap);
         }

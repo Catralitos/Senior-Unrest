@@ -6,18 +6,23 @@ namespace Player
     {
         public int currentGold { get; private set; }
         public int currentArmor { get; private set; }
-        public int currentCoffee { get; private set; }
+        public int currentEnergy { get; private set; }
 
         private void Start()
         {
             currentGold = 0;
             currentArmor = 0;
-            currentCoffee = 0;
+            currentEnergy = 0;
         }
 
         public void IncreaseGold(int value)
         {
             currentGold += value;
+        }
+
+        public void SpendGold(int value)
+        {
+            currentGold -= value;
         }
 
         public void IncreaseArmor(int value)
@@ -27,7 +32,7 @@ namespace Player
 
         public void IncreaseCoffee(int value)
         {
-            currentCoffee += value;
+            currentEnergy += value;
         }
     }
 }

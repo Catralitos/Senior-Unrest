@@ -45,6 +45,20 @@ namespace Managers
         public int startingChasers;
         public int startingTraps;
         public int startingCoins;
+
+        [Header("ShopValues")] public int coffeePrice;
+        public int trapPrice;
+        public int pillsPrice;
+        public int armorPrice;
+        public int energyPrice;
+
+        [Header("UI Elements")] public GameObject hudUI;
+        public GameObject shopUI;
+        public bool ShopIsOpen { get; private set; }
+        //BTW Pedro, isto é só para dar enable, disable da HUD.
+        //quando fizeres o codigo da HUD, melhor fazeres uma classe para isso na pasta UI
+        //tipo HUDManager;
+        
         
         private int _currentLevel;
         private int _currentWidth;
@@ -148,5 +162,45 @@ namespace Managers
             }
         }
 
+        private void OpenShop()
+        {
+            hudUI.SetActive(false);
+            shopUI.SetActive(true);
+            ShopIsOpen = true;
+        }
+
+        public void CloseShop()
+        {
+            shopUI.SetActive(false);
+            hudUI.SetActive(true);
+            ShopIsOpen = false;
+        }
+
+        public void BuyCoffee()
+        {
+            PlayerEntity.Instance.inventory.SpendGold(coffeePrice);
+            //PlayerEntity.Instance.health.RestoreHealth();
+        }
+
+        public void BuyTrap()
+        {
+            PlayerEntity.Instance.inventory.SpendGold(trapPrice);
+            PlayerEntity.Instance.traps.AddTrap();
+        }
+
+        public void BuyPills()
+        {
+            PlayerEntity.Instance.inventory.SpendGold(pillsPrice);
+        }
+
+        public void BuyArmor()
+        {
+            PlayerEntity.Instance.inventory.SpendGold(armorPrice);
+        }
+
+        public void BuyEnergy()
+        {
+            PlayerEntity.Instance.inventory.SpendGold(energyPrice);
+        }
     }
 }
