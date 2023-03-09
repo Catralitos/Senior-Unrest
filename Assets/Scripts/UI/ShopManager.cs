@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
+    public TextMeshProUGUI currentCoins;
+    
     [Header("Buttons")] public Button buyCoffee;
     public Button buyTrap;
     public Button buyPills;
@@ -45,6 +47,7 @@ public class ShopManager : MonoBehaviour
     private void Update()
     {
         int currentGold = PlayerEntity.Instance.inventory.currentGold;
+        currentCoins.text = currentGold.ToString();
         buyCoffee.interactable = currentGold >= GameManager.Instance.coffeePrice && 
                                  PlayerEntity.Instance.health.currentHealth == PlayerEntity.Instance.health.maxHealth;
         buyTrap.interactable = currentGold >= GameManager.Instance.trapPrice && 
