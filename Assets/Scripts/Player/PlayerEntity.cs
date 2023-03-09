@@ -28,6 +28,7 @@ namespace Player
         [HideInInspector] public PlayerTraps traps;
         [HideInInspector] public PlayerCatch catcher;
         [HideInInspector] public PlayerInventory inventory;
+        [HideInInspector] public Animator animator;
         
         private void Start()
         {
@@ -36,6 +37,7 @@ namespace Player
             traps = GetComponent<PlayerTraps>();
             catcher = GetComponent<PlayerCatch>();
             inventory = GetComponent<PlayerInventory>();
+            animator = GetComponent<Animator>();
         }
     }
 }

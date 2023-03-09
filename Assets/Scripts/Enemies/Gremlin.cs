@@ -56,7 +56,7 @@ namespace Enemies
                 possibleMoves = possibleMoves.OrderByDescending(x => GetDistanceInTiles(transform.position + x, playerPos)).ToList();
             }
 
-            StartCoroutine(MoveGremlin(possibleMoves[0]));
+            StartCoroutine(possibleMoves.Count == 0 ? MoveGremlin(Vector3.zero) : MoveGremlin(possibleMoves[0]));
         }
     
         private IEnumerator MoveGremlin(Vector3 direction)
