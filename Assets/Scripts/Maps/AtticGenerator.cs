@@ -13,8 +13,6 @@ namespace Maps
         [SerializeField] private Tilemap _groundTilemap;
         [SerializeField] private RuleTile _wallTiles;
         [SerializeField] private RuleTile _groundTiles;
-        //[SerializeField] private TileBase _testWall;
-        //[SerializeField] private TileBase _testGround;
 
         [Header("Dimensions (for testing only)")]
         [SerializeField] private int _maxWidth;
