@@ -7,6 +7,7 @@ namespace Items
 {
     public class EndPortal : MonoBehaviour
     {
+        [HideInInspector] public bool hasPlayer;
         public LayerMask player;
         
         public void OnTriggerEnter2D(Collider2D col)
@@ -14,8 +15,9 @@ namespace Items
             if (player.HasLayer(col.gameObject.layer))
             {
                 GameManager.Instance.OpenShop();
-                Destroy(gameObject);
+                Destroy(gameObject);             
             }
         }
+        
     }
 }

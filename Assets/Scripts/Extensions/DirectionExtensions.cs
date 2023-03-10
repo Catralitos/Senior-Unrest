@@ -14,7 +14,7 @@ namespace Extensions
                 Direction.South => new Vector2Int(0, -1),
                 Direction.East => new Vector2Int(1, 0),
                 Direction.West => new Vector2Int(-1, 0),
-                Direction.None => Vector2Int.zero,
+                //Direction.None => Vector2Int.zero,
                 _ => throw new ArgumentOutOfRangeException(nameof(self), self, null)
             };
         }
@@ -25,7 +25,7 @@ namespace Extensions
             if (self == new Vector2Int(0, -1)) return Direction.South;
             if (self == new Vector2Int(1, 0)) return Direction.East;
             if (self == new Vector2Int(-1, 0)) return Direction.West;
-            if (self == Vector2Int.zero) return Direction.None;
+            //if (self == Vector2Int.zero) return Direction.None;
             throw new ArgumentException(nameof(self), self.ToString(), null);
         }
     }

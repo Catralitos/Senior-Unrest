@@ -41,6 +41,7 @@ namespace Managers
         private int _turnsBeforeSleepDrop;
         private List<Gremlin> _enemiesInMap;
         private List<Trap> _trapsInMap;
+        [HideInInspector] public EndPortal portalInMap;
 
         public void Start()
         {
@@ -114,7 +115,18 @@ namespace Managers
                 _currentTurn = 0;
             }
             
-            if (_enemiesInMap.Count==0) GameManager.Instance.SpawnEndPortal();
+            if (_enemiesInMap.Count==0 && portalInMap == null) GameManager.Instance.SpawnEndPortal();
+
+            if (portalInMap != null)
+            {
+                if (portalInMap.hasPlayer)
+                {
+                    GameManager.Instance.OpenShop();
+                    GameObject portal = portalInMap.gameObject;
+                    portalInMap = null;
+                    Destroy(portal);
+                }
+            }
             
             ProcessingTurn = false;
         }

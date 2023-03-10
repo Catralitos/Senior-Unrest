@@ -76,7 +76,8 @@ namespace Managers
         private int _currentCellsToRemove;
         private Vector3 _playerStartPosition;
         private bool _spawnedEndPortal;
-        
+        private List<GameObject> _spawnedTrapsAndCoins;
+
         private void Start()
         {
             _atticGenerator = GetComponent<AtticGenerator>();
@@ -85,6 +86,7 @@ namespace Managers
             _currentHeight = startingHeight;
             _currentCellsToRemove = startingCellsToRemove;
             CurrentArmorUpgrades = 0;
+            _spawnedTrapsAndCoins = new List<GameObject>();
             StartLevel();
         }
 
@@ -93,22 +95,21 @@ namespace Managers
             _atticGenerator.Generate(_currentWidth, _currentHeight, _currentCellsToRemove);
             Grid g = _atticGenerator.Attic.Grid;
             for (int i = 0; i < g.Cells.Length; i++)
-            {
-                if (g.Get(i).Value) continue;
-
-                Vector2Int coordinates = g.GetCoordinates(g.Get(i));
+            { 
+                GridCell<bool> cell = g.Get(i);
+                Vector2Int coordinates = g.GetCoordinates(cell);
                 Vector3 playerPos = new Vector3(coordinates.x, coordinates.y, 0);
-                if (PlayerEntity.Instance != null)
+                
+                if (!cell.Value)
                 {
+                    if (PlayerEntity.Instance == null)
+                    {
+                        Instantiate(playerPrefab, playerPos, Quaternion.identity);
+                    }
                     PlayerEntity.Instance.gameObject.transform.position = playerPos;
+                    _playerStartPosition = playerPos;
+                    break;
                 }
-                else
-                {
-                    Instantiate(playerPrefab, playerPos, Quaternion.identity);
-                }
-
-                _playerStartPosition = playerPos;
-                break;
             }
 
             int chasersSpawned = 0, runnersSpawned = 0, trapsSpawned = 0, coinsSpawned = 0;
@@ -118,7 +119,7 @@ namespace Managers
                 GridCell<bool> cell = g.Get(randomPosition);
                 Vector2Int cellCoordinates = g.GetCoordinates(cell);
                 Vector3 spawnPosition = new Vector3(cellCoordinates.x, cellCoordinates.y, 0);
-                if (!cell.Value && Physics2D.OverlapBox(spawnPosition, new Vector2(0.5f, 0.5f), 0, spawnables) == null)
+                if (!cell.Value && spawnPosition != _playerStartPosition && Physics2D.OverlapBox(spawnPosition, new Vector2(0.75f, 0.75f), 0, spawnables) == null)
                 {
                     GameObject chaser = Instantiate(chaserPrefab, spawnPosition, Quaternion.identity);
                     TurnManager.Instance.AddGremlin(chaser.GetComponent<Gremlin>());
@@ -131,7 +132,7 @@ namespace Managers
                 GridCell<bool> cell = g.Get(randomPosition);
                 Vector2Int cellCoordinates = g.GetCoordinates(cell);
                 Vector3 spawnPosition = new Vector3(cellCoordinates.x, cellCoordinates.y, 0);
-                if (!cell.Value && Physics2D.OverlapBox(spawnPosition, new Vector2(0.5f, 0.5f), 0, spawnables) == null)
+                if (!cell.Value && spawnPosition != _playerStartPosition && Physics2D.OverlapBox(spawnPosition, new Vector2(0.75f, 0.75f), 0, spawnables) == null)
                 {
                     GameObject runner = Instantiate(runnerPrefab, spawnPosition, Quaternion.identity);
                     TurnManager.Instance.AddGremlin(runner.GetComponent<Gremlin>());
@@ -145,10 +146,11 @@ namespace Managers
                 GridCell<bool> cell = g.Get(randomPosition);
                 Vector2Int cellCoordinates = g.GetCoordinates(cell);
                 Vector3 spawnPosition = new Vector3(cellCoordinates.x, cellCoordinates.y, 0);
-                if (!cell.Value && Physics2D.OverlapBox(spawnPosition, new Vector2(0.5f, 0.5f), 0, spawnables) == null)
+                if (!cell.Value && spawnPosition != _playerStartPosition && Physics2D.OverlapBox(spawnPosition, new Vector2(0.75f, 0.75f), 0, spawnables) == null)
                 {
                     GameObject trap = Instantiate(trapPrefab, spawnPosition, Quaternion.identity);
                     TurnManager.Instance.AddTrap(trap.GetComponent<Trap>());
+                    _spawnedTrapsAndCoins.Add(trap);
                     trapsSpawned++;
                 }
             }
@@ -159,10 +161,12 @@ namespace Managers
                 GridCell<bool> cell = g.Get(randomPosition);
                 Vector2Int cellCoordinates = g.GetCoordinates(cell);
                 Vector3 spawnPosition = new Vector3(cellCoordinates.x, cellCoordinates.y, 0);
-                if (!cell.Value && Physics2D.OverlapBox(spawnPosition, new Vector2(0.5f, 0.5f), 0, spawnables) == null)
+                if (!cell.Value && spawnPosition != _playerStartPosition && Physics2D.OverlapBox(spawnPosition, new Vector2(0.75f, 0.75f), 0, spawnables) == null)
                 {
-                    Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
+                    GameObject coin = Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
                     coinsSpawned++;
+                    _spawnedTrapsAndCoins.Add(coin);
+
                 }
             }
 
@@ -182,11 +186,23 @@ namespace Managers
 
         public void SpawnEndPortal()
         {
-            if (!_spawnedEndPortal) Instantiate(portalPrefab, _playerStartPosition, Quaternion.identity);
+            if (!_spawnedEndPortal)
+            {
+                GameObject portal = Instantiate(portalPrefab, _playerStartPosition, Quaternion.identity);
+                TurnManager.Instance.portalInMap = portal.GetComponent<EndPortal>();
+            }
         }
 
         public void OpenShop()
         {
+            foreach (GameObject item in _spawnedTrapsAndCoins)
+            {
+                if (item != null)
+                {
+                    Destroy(item);
+                }
+            }
+            _spawnedTrapsAndCoins.Clear();
             _currentPillsUpgrades = 0;
             PlayerEntity.Instance.traps.ResetTraps();
             hudUI.SetActive(false);
@@ -201,6 +217,7 @@ namespace Managers
             hudUI.SetActive(true);
             ShopIsOpen = false;
             _spawnedEndPortal = false;
+            PlayerEntity.Instance.gameObject.transform.position = _playerStartPosition;
         }
 
         public void BuyCoffee()

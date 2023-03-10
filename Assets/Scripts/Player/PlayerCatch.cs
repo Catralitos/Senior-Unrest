@@ -25,6 +25,7 @@ namespace Player
                     TurnManager.Instance.CatchGremlin(col.gameObject);
                     TurnManager.Instance.ProcessTurn(transform.position);
                     PlayerEntity.Instance.animator.SetTrigger("Attack");
+                    break;
                 }
             }
         }
