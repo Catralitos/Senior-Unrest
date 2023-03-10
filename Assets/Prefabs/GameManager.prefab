@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3188885416419527591}
   - component: {fileID: 4139482379852960799}
   - component: {fileID: 3188885416419527588}
+  - component: {fileID: 1565499930}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -49,15 +50,45 @@ MonoBehaviour:
   chaserPrefab: {fileID: 5363594163669928714, guid: b384ecb27df89a340a014c87e1422234, type: 3}
   runnerPrefab: {fileID: 4464876635556058035, guid: 1cc00a87a56fbc4499347bcbc871118b, type: 3}
   trapPrefab: {fileID: 6328820565560180562, guid: dca27fff806698f4c9d008c8897d31dd, type: 3}
+  coinPrefab: {fileID: 6328820565560180562, guid: fb21192444c22b043b244b0107d51c4a, type: 3}
+  portalPrefab: {fileID: 8332439692040450383, guid: e81f350931f2aec44bfbf20fd9998ae5, type: 3}
   spawnables:
     serializedVersion: 2
-    m_Bits: 1984
+    m_Bits: 4032
   startingWidth: 10
   startingHeight: 10
-  startingCellsToRemove: 75
-  startingRunners: 1
-  startingChasers: 1
-  startingTraps: 2
+  startingCellsToRemove: 25
+  gremlinsList:
+  - {x: 1, y: 0}
+  - {x: 2, y: 0}
+  - {x: 0, y: 1}
+  - {x: 1, y: 1}
+  - {x: 2, y: 1}
+  - {x: 1, y: 2}
+  - {x: 3, y: 0}
+  - {x: 2, y: 2}
+  - {x: 1, y: 3}
+  - {x: 3, y: 3}
+  widthIncrease: 0
+  heightIncrease: 0
+  cellsToRemoveIncrease: 10
+  turnsToIncrease: 3
+  coffeePrice: 10
+  trapPrice: 15
+  pillsPrice: 25
+  armorPrice: 30
+  energyPrice: 30
+  coffeeRecoveryPercentage: 0.15
+  armorDamageDecreasePercentage:
+  - 1
+  - 0.9
+  - 0.9
+  - 0.81
+  - 0.72
+  - 0.63
+  energyRoundsIncrease: 2
+  hudUI: {fileID: 0}
+  shopUI: {fileID: 0}
 --- !u!114 &3188885416419527588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,8 +104,24 @@ MonoBehaviour:
   _wallsTilemap: {fileID: 0}
   _groundTilemap: {fileID: 0}
   _wallTiles: {fileID: 11400000, guid: c40e2ff62d0188cbaa9e263b8da767fa, type: 2}
-  _groundTiles: {fileID: 11400000, guid: c40e2ff62d0188cbaa9e263b8da767fa, type: 2}
-  _maxWidth: 7
-  _maxHeight: 7
-  _cellsToRemove: 10
+  _groundTiles: {fileID: 11400000, guid: 9d4c6fde86e9ba9dc27054e381e9c793, type: 2}
+  _maxWidth: 10
+  _maxHeight: 10
+  _cellsToRemove: 50
   _shrink: 0
+--- !u!114 &1565499930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3188885416419527589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cfac1211a9d5441a2ce335f03852af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitTimeToMove: 0.2
+  turnsForSleepDrop: 10
+  gremlinDamage: 5
+  sleepDamage: 5

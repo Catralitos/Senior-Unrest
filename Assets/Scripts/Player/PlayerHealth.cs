@@ -1,5 +1,7 @@
 using System;
+using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -35,7 +37,7 @@ namespace Player
 
         public void DealDamage(int damage)
         {
-            currentHealth = Math.Clamp(currentHealth - damage, 0, maxHealth);
+            currentHealth = Math.Clamp(Mathf.RoundToInt(currentHealth - (damage*GameManager.Instance.armorDamageDecreasePercentage[GameManager.Instance.CurrentArmorUpgrades])), 0, maxHealth);
             if (currentHealth == 0)
             {
                 Die();
@@ -46,12 +48,11 @@ namespace Player
         {
             currentHealth = Math.Clamp(currentHealth + heal, 0, maxHealth);
         }
+        
 
-        private void Die()
+        private static void Die()
         {
-            //TODO implementar morte a sério
-            //Destroy(gameObject);
-            Debug.Log("I DIED!!!!");
+            SceneManager.LoadScene(2);
         }
     }
 }

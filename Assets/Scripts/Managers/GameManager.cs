@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Enemies;
 using Items;
 using Maps;
@@ -23,8 +24,6 @@ namespace Managers
             {
                 Destroy(gameObject);
             }
-
-            //DontDestroyOnLoad(this.gameObject);
         }
 
         #endregion
@@ -33,7 +32,8 @@ namespace Managers
         public GameObject chaserPrefab;
         public GameObject runnerPrefab;
         public GameObject trapPrefab;
-        public GameObject coin;
+        public GameObject coinPrefab;
+        public GameObject portalPrefab;
         
         public LayerMask spawnables;
         private AtticGenerator _atticGenerator;
@@ -41,16 +41,26 @@ namespace Managers
         [Header("Initial values")] public int startingWidth;
         public int startingHeight;
         public int startingCellsToRemove;
-        public int startingRunners;
-        public int startingChasers;
-        public int startingTraps;
-        public int startingCoins;
+        public List<Vector2> gremlinsList;
 
-        [Header("ShopValues")] public int coffeePrice;
+        [Header("Map changes per level")] public int widthIncrease;
+        public int heightIncrease;
+        public int cellsToRemoveIncrease;
+        public int turnsToIncrease;
+
+        [Header("Shop Prices")] public int coffeePrice;
         public int trapPrice;
         public int pillsPrice;
         public int armorPrice;
         public int energyPrice;
+
+        [Header("Upgrade Values")] 
+        [Range(0,1)] public float coffeeRecoveryPercentage;
+        [Range(0,1)] public float[] armorDamageDecreasePercentage;
+        public int energyRoundsIncrease;
+        
+        public int CurrentArmorUpgrades { get; private set; }
+        private int _currentPillsUpgrades;
 
         [Header("UI Elements")] public GameObject hudUI;
         public GameObject shopUI;
@@ -64,11 +74,9 @@ namespace Managers
         private int _currentWidth;
         private int _currentHeight;
         private int _currentCellsToRemove;
-        private int _currentRunners;
-        private int _currentChasers;
-        private int _currentTraps;
-        private int _currentCoins;
-
+        private Vector3 _playerStartPosition;
+        private bool _spawnedEndPortal;
+        
         private void Start()
         {
             _atticGenerator = GetComponent<AtticGenerator>();
@@ -76,15 +84,11 @@ namespace Managers
             _currentWidth = startingWidth;
             _currentHeight = startingHeight;
             _currentCellsToRemove = startingCellsToRemove;
-            _currentRunners = startingRunners;
-            _currentChasers = startingChasers;
-            _currentTraps = startingTraps;
-            _currentCoins = startingCoins;
-            //TODO tirar isto daqui, não pode ser no start
+            CurrentArmorUpgrades = 0;
             StartLevel();
         }
 
-        public void StartLevel()
+        private void StartLevel()
         {
             _atticGenerator.Generate(_currentWidth, _currentHeight, _currentCellsToRemove);
             Grid g = _atticGenerator.Attic.Grid;
@@ -103,11 +107,12 @@ namespace Managers
                     Instantiate(playerPrefab, playerPos, Quaternion.identity);
                 }
 
+                _playerStartPosition = playerPos;
                 break;
             }
 
             int chasersSpawned = 0, runnersSpawned = 0, trapsSpawned = 0, coinsSpawned = 0;
-            while (chasersSpawned < _currentChasers)
+            while (chasersSpawned < gremlinsList[_currentLevel-1].y)
             {
                 int randomPosition = Random.Range(0,g.Cells.Length);
                 GridCell<bool> cell = g.Get(randomPosition);
@@ -120,7 +125,7 @@ namespace Managers
                     chasersSpawned++;
                 }
             }
-            while (runnersSpawned < _currentRunners)
+            while (runnersSpawned < gremlinsList[_currentLevel-1].x)
             {
                 int randomPosition = Random.Range(0,g.Cells.Length);
                 GridCell<bool> cell = g.Get(randomPosition);
@@ -134,7 +139,7 @@ namespace Managers
                 }
             }
 
-            while (trapsSpawned < _currentTraps)
+            while (trapsSpawned < gremlinsList[_currentLevel-1].y + 1)
             {
                 int randomPosition = Random.Range(0,g.Cells.Length);
                 GridCell<bool> cell = g.Get(randomPosition);
@@ -148,7 +153,7 @@ namespace Managers
                 }
             }
             
-            while (coinsSpawned < _currentCoins)
+            while (coinsSpawned < Mathf.Floor(gremlinsList[_currentLevel-1].x + 1.5f * gremlinsList[_currentLevel-1].y))
             {
                 int randomPosition = Random.Range(0,g.Cells.Length);
                 GridCell<bool> cell = g.Get(randomPosition);
@@ -156,17 +161,38 @@ namespace Managers
                 Vector3 spawnPosition = new Vector3(cellCoordinates.x, cellCoordinates.y, 0);
                 if (!cell.Value && Physics2D.OverlapBox(spawnPosition, new Vector2(0.5f, 0.5f), 0, spawnables) == null)
                 {
-                    GameObject coin = Instantiate(this.coin, spawnPosition, Quaternion.identity);
+                    Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
                     coinsSpawned++;
                 }
             }
+
+            for (int i = 0; i < _currentPillsUpgrades; i++)
+            {
+                TurnManager.Instance.RemoveRandomGremlin();
+            }
+
+            _currentLevel++;
+            if (_currentLevel - 1 % turnsToIncrease == 0)
+            {
+                _currentWidth += widthIncrease;
+                _currentHeight += heightIncrease;
+                _currentCellsToRemove += cellsToRemoveIncrease;
+            }
         }
 
-        private void OpenShop()
+        public void SpawnEndPortal()
         {
+            if (!_spawnedEndPortal) Instantiate(portalPrefab, _playerStartPosition, Quaternion.identity);
+        }
+
+        public void OpenShop()
+        {
+            _currentPillsUpgrades = 0;
+            PlayerEntity.Instance.traps.ResetTraps();
             hudUI.SetActive(false);
             shopUI.SetActive(true);
             ShopIsOpen = true;
+            StartLevel();
         }
 
         public void CloseShop()
@@ -174,12 +200,14 @@ namespace Managers
             shopUI.SetActive(false);
             hudUI.SetActive(true);
             ShopIsOpen = false;
+            _spawnedEndPortal = false;
         }
 
         public void BuyCoffee()
         {
             PlayerEntity.Instance.inventory.SpendGold(coffeePrice);
-            //PlayerEntity.Instance.health.RestoreHealth();
+            PlayerEntity.Instance.health.RestoreHealth( 
+                Mathf.RoundToInt(PlayerEntity.Instance.health.maxHealth * coffeeRecoveryPercentage));
         }
 
         public void BuyTrap()
@@ -191,16 +219,19 @@ namespace Managers
         public void BuyPills()
         {
             PlayerEntity.Instance.inventory.SpendGold(pillsPrice);
+            _currentPillsUpgrades++;
         }
 
         public void BuyArmor()
         {
             PlayerEntity.Instance.inventory.SpendGold(armorPrice);
+            CurrentArmorUpgrades++;
         }
 
         public void BuyEnergy()
         {
             PlayerEntity.Instance.inventory.SpendGold(energyPrice);
+            TurnManager.Instance.turnsForSleepDrop += energyRoundsIncrease;
         }
     }
 }

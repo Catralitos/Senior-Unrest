@@ -25,7 +25,7 @@ namespace UI
 
         [Header("Descriptions")] public TextMeshProUGUI coffeeDescription;
         public TextMeshProUGUI armorDescription;
-        public TextMeshProUGUI drinkDescription;
+        public TextMeshProUGUI energyDescription;
 
         private void Start()
         {
@@ -55,8 +55,20 @@ namespace UI
             buyTrap.interactable = currentGold >= GameManager.Instance.trapPrice && 
                                    PlayerEntity.Instance.traps.CurrentAmountOfTraps() < PlayerEntity.Instance.traps.trapSlots;
             buyPills.interactable = currentGold >= GameManager.Instance.pillsPrice;
-            buyArmor.interactable = currentGold >= GameManager.Instance.armorPrice;
+            buyArmor.interactable = currentGold >= GameManager.Instance.armorPrice 
+                                    && GameManager.Instance.CurrentArmorUpgrades <  GameManager.Instance.armorDamageDecreasePercentage.Length;
             buyEnergy.interactable = currentGold >= GameManager.Instance.energyPrice;
+            coffeeDescription.text = "Restores " + (GameManager.Instance.coffeeRecoveryPercentage * 100) +"% of your max energy.";
+            if (buyArmor.interactable)
+            {
+                armorDescription.text = "Reduces gremlin damage to " +
+                                        (GameManager.Instance.armorDamageDecreasePercentage[
+                                            GameManager.Instance.CurrentArmorUpgrades + 1] * 100) + "%.";
+            }
+
+            energyDescription.text = "Increases the number of turns before becoming sleepier by " +
+                                     GameManager.Instance.energyRoundsIncrease + ".";
+
         }
 
         private static void BuyCoffee()
@@ -71,7 +83,7 @@ namespace UI
 
         private static void BuyPills()
         {
-            GameManager.Instance.BuyTrap();
+            GameManager.Instance.BuyPills();
         }
 
         private static void BuyArmor()

@@ -59,6 +59,14 @@ namespace Managers
             _trapsInMap ??= new List<Trap>();
             _trapsInMap.Add(t);
         }
+
+        public void RemoveRandomGremlin()
+        {
+            int randomIndex = Random.Range(0, _enemiesInMap.Count);
+            Gremlin g = _enemiesInMap[randomIndex];
+            _enemiesInMap.Remove(g);
+            Destroy(g.gameObject);
+        }
     
         public void ProcessTurn(Vector3 playerPos)
         {
@@ -105,6 +113,8 @@ namespace Managers
                 PlayerEntity.Instance.health.DealDamage(sleepDamage);
                 _currentTurn = 0;
             }
+            
+            if (_enemiesInMap.Count==0) GameManager.Instance.SpawnEndPortal();
             
             ProcessingTurn = false;
         }

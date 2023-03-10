@@ -5340,27 +5340,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1565499929 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3188885416419527589, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-  m_PrefabInstance: {fileID: 3188885417181142717}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1565499930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565499929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04cfac1211a9d5441a2ce335f03852af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitTimeToMove: 0.2
-  turnsForSleepDrop: 10
-  gremlinDamage: 5
-  sleepDamage: 5
 --- !u!1 &1643390056
 GameObject:
   m_ObjectHideFlags: 0
@@ -5433,7 +5412,7 @@ MonoBehaviour:
   energyPrice: {fileID: 1928085799}
   coffeeDescription: {fileID: 378269925}
   armorDescription: {fileID: 420758252}
-  drinkDescription: {fileID: 661109836}
+  energyDescription: {fileID: 0}
 --- !u!1 &1741560556
 GameObject:
   m_ObjectHideFlags: 0
@@ -6960,25 +6939,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3188885416419527588, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: _maxWidth
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3188885416419527588, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: _maxHeight
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3188885416419527588, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: _groundTiles
-      value: 
-      objectReference: {fileID: 11400000, guid: 9d4c6fde86e9ba9dc27054e381e9c793, type: 2}
-    - target: {fileID: 3188885416419527588, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
       propertyPath: _wallsTilemap
       value: 
       objectReference: {fileID: 1247675370}
-    - target: {fileID: 3188885416419527588, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: _cellsToRemove
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 3188885416419527588, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
       propertyPath: _groundTilemap
       value: 
@@ -7032,28 +6995,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: coin
+      propertyPath: hudUI
       value: 
-      objectReference: {fileID: 6328820565560180562, guid: fb21192444c22b043b244b0107d51c4a, type: 3}
+      objectReference: {fileID: 1527493982}
     - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: startingCoins
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: startingWidth
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: startingHeight
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: spawnables.m_Bits
-      value: 4032
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139482379852960799, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
-      propertyPath: startingCellsToRemove
-      value: 25
-      objectReference: {fileID: 0}
+      propertyPath: shopUI
+      value: 
+      objectReference: {fileID: 1643390056}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 207d675a4bca4ed4083c12f71ea9920d, type: 3}
