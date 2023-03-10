@@ -110,6 +110,7 @@ MonoBehaviour:
   traps: {fileID: 0}
   catcher: {fileID: 0}
   inventory: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &6094105347142986410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacles:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 256
 --- !u!114 &6094105347142986408
 MonoBehaviour:
   m_ObjectHideFlags: 0
