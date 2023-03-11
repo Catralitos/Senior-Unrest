@@ -270,8 +270,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Attack
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: a9e1b8f7b4b859f4cbc693cf99484f7c, type: 3}
     volume: 0.2
     pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Moving
+    clip: {fileID: 8300000, guid: f93864ed20d5dc546bbcfe36bb30193c, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Damage
+    clip: {fileID: 8300000, guid: 6bf30453907dd8a40897e260992db33e, type: 3}
+    volume: 0.2
+    pitch: 1.66
     loop: 0
     source: {fileID: 0}

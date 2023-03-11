@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8474166793931958566}
   - component: {fileID: 8134030168758863792}
   - component: {fileID: 7575167995499279566}
+  - component: {fileID: 4212605875066337320}
   m_Layer: 12
   m_Name: EndPortal
   m_TagString: Untagged
@@ -173,6 +174,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c500b2d92a4d0b9352c6c28c63e896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasPlayer: 0
   player:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &4212605875066337320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332439692040450383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f791d31bbabdb6840a27c4bbf99f9cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: enterPortal
+    clip: {fileID: 8300000, guid: 8dd293eaa291f994a81ac3806a652848, type: 3}
+    volume: 0.354
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Portal
+    clip: {fileID: 8300000, guid: d7744afe97d5e024a88ae055d1a19a4c, type: 3}
+    volume: 0.709
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
