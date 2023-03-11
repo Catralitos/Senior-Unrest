@@ -1,3 +1,4 @@
+using Audio;
 using UnityEngine;
 
 namespace Player
@@ -29,6 +30,7 @@ namespace Player
         [HideInInspector] public PlayerCatch catcher;
         [HideInInspector] public PlayerInventory inventory;
         [HideInInspector] public Animator animator;
+        [HideInInspector] public AudioManager audioManager;
         
         private void Start()
         {
@@ -38,6 +40,7 @@ namespace Player
             catcher = GetComponent<PlayerCatch>();
             inventory = GetComponent<PlayerInventory>();
             animator = GetComponent<Animator>();
+            audioManager = GetComponent<AudioManager>();
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Player
                 Collider2D col = Physics2D.OverlapBox(transform.position + direction, new Vector2(0.5f, 0.5f), 0, runners);
                 if (col)
                 {
+                    PlayerEntity.Instance.audioManager.Play("Attack");
                     TurnManager.Instance.CatchGremlin(col.gameObject);
                     TurnManager.Instance.ProcessTurn(transform.position);
                     PlayerEntity.Instance.animator.SetTrigger("Attack");
