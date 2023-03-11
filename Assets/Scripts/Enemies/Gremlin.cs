@@ -22,7 +22,7 @@ namespace Enemies
 
         private void Start()
         {
-            audioManager = GetComponent<AudioManager>();            
+            audioManager = GetComponent<AudioManager>(); //audioManager.Play("Portal");           
         }
 
         public void Move(Vector3 playerPos)
@@ -76,8 +76,10 @@ namespace Enemies
 
             _origPos = transform.position;
             _targetPos = _origPos + direction;
-        
-            while(elapsedTime < TurnManager.Instance.unitTimeToMove)
+
+            audioManager.Play("Moving");
+
+            while (elapsedTime < TurnManager.Instance.unitTimeToMove)
             {
                 transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / TurnManager.Instance.unitTimeToMove));
                 elapsedTime += Time.deltaTime;
