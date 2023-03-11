@@ -56,7 +56,7 @@ namespace Player
 
         private static void Die()
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
     }
 }

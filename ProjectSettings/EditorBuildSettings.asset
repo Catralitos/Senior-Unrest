@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/GenerationTest.unity
     guid: 16e7efb8f2ca96b4093dac009ea6f7a1
   - enabled: 1
-    path: Assets/Scenes/Credits.unity
+    path: Assets/Scenes/CreditsWin.unity
     guid: 239ac298f42483b43bfa84ebd1c270a6
   m_configObjects: {}
