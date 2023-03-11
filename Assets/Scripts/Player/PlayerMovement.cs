@@ -36,18 +36,26 @@ namespace Player
 
             if (Physics2D.OverlapBox(_targetPos, new Vector2(0.5f, 0.5f), 0, obstacles) != null)
             {
-                IsMoving = false;
+                IsMoving = false;              
+
                 yield break;
             }
 
             TurnManager.Instance.ProcessTurn(_targetPos);
-            
-            while(elapsedTime < TurnManager.Instance.unitTimeToMove)
+
+            //audio do Nuno :)
+            PlayerEntity.Instance.audioManager.Play("Moving");
+
+            while (elapsedTime < TurnManager.Instance.unitTimeToMove)
             {
                 transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / TurnManager.Instance.unitTimeToMove));
-                elapsedTime += Time.deltaTime;
+                elapsedTime += Time.deltaTime;                               
+
                 yield return null;
+
             }
+
+            
 
             transform.position = _targetPos;
             IsMoving = false;

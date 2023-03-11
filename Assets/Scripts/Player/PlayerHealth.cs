@@ -40,7 +40,10 @@ namespace Player
             currentHealth = Math.Clamp(Mathf.RoundToInt(currentHealth - (damage*GameManager.Instance.armorDamageDecreasePercentage[GameManager.Instance.CurrentArmorUpgrades])), 0, maxHealth);
             if (currentHealth == 0)
             {
-                Die();
+                /*Invoke("Die", 3);
+                PlayerEntity.Instance.audioManager.Play("Damage");
+                //play animation of grama falling?*/
+                 Die();
             }
         }
 
