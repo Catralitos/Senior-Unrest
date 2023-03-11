@@ -65,11 +65,7 @@ namespace Managers
         [Header("UI Elements")] public GameObject hudUI;
         public GameObject shopUI;
         public bool ShopIsOpen { get; private set; }
-        //BTW Pedro, isto é só para dar enable, disable da HUD.
-        //quando fizeres o codigo da HUD, melhor fazeres uma classe para isso na pasta UI
-        //tipo HUDManager;
-        
-        
+
         private int _currentLevel;
         private int _currentWidth;
         private int _currentHeight;

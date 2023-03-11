@@ -68,7 +68,7 @@ namespace Player
         }
 
         public void AddMessage(string newMessage) {
-            logQueue.Enqueue(newMessage);
+            logQueue.Enqueue("Turn " + TurnManager.Instance.currentTurn+ ": " + newMessage);
             if (logQueue.ToArray().Length > logMessages.Count)
             {
                 logQueue.Dequeue();

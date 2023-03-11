@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enemies;
 using Items;
 using Player;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -34,7 +36,7 @@ namespace Managers
         public float unitTimeToMove = 0.2f;
     
         public int turnsForSleepDrop;
-        private int _currentTurn;
+        public int currentTurn { get; private set; }
         public int gremlinDamage;
         public int sleepDamage;
     
@@ -90,6 +92,10 @@ namespace Managers
             {
                 if (t.hasGremlin)
                 {
+                    String type = t.caughtGremlin.chaser ? "Chaser" : "Runner";
+                    Vector2Int pos = new Vector2Int(Mathf.RoundToInt(t.gameObject.transform.position.x),
+                        Mathf.RoundToInt(t.gameObject.transform.position.y));
+                    PlayerHUD.Instance.AddMessage("Caught a " + type + " in a trap at " + pos + ".");
                     _enemiesInMap.Remove(t.caughtGremlin);
                     Destroy(t.caughtGremlin.gameObject);
                     toRemove.Add(t);
@@ -106,17 +112,23 @@ namespace Managers
             for (int i = 0; i < surroundingGremlins; i++)
             {
                 PlayerEntity.Instance.health.DealDamage(gremlinDamage);
+                PlayerHUD.Instance.AddMessage("Lost " + gremlinDamage + " sleep due to an impudent chaser!");
             }
          
-            _currentTurn++;
+            currentTurn++;
             turnsBeforeSleepDrop++;
             if (turnsBeforeSleepDrop == turnsForSleepDrop)
             {
                 PlayerEntity.Instance.health.DealDamage(sleepDamage);
                 turnsBeforeSleepDrop = 0;
+                PlayerHUD.Instance.AddMessage("Lost " + sleepDamage + " sleep because you are very tired.");
             }
-            
-            if (_enemiesInMap.Count==0 && portalInMap == null) GameManager.Instance.SpawnEndPortal();
+
+            if (_enemiesInMap.Count == 0 && portalInMap == null)
+            {
+                GameManager.Instance.SpawnEndPortal();
+                PlayerHUD.Instance.AddMessage("The level exit as spawned!");
+            }
 
             if (portalInMap != null)
             {

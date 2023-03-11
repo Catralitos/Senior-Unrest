@@ -14,6 +14,7 @@ namespace Items
             if (player.HasLayer(col.gameObject.layer))
             {
                 PlayerEntity.Instance.inventory.IncreaseGold(value);
+                PlayerHUD.Instance.AddMessage("Picked up " + value + " gold.");
                 Destroy(gameObject);
             }
         }

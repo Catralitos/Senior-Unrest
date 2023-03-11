@@ -23,6 +23,7 @@ namespace Player
                 if (col)
                 {
                     PlayerEntity.Instance.audioManager.Play("Attack");
+                    PlayerHUD.Instance.AddMessage("Caught a cheek runner.");
                     TurnManager.Instance.CatchGremlin(col.gameObject);
                     TurnManager.Instance.ProcessTurn(transform.position);
                     PlayerEntity.Instance.animator.SetTrigger("Attack");
