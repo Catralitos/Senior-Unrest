@@ -5,18 +5,26 @@ using System.Linq;
 using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Audio;
 
 namespace Enemies
 {
     public class Gremlin : MonoBehaviour
     {
-    
+
+        [HideInInspector] public AudioManager audioManager;
+
         public bool chaser;
         public LayerMask obstacles;
     
         public bool IsMoving { get; private set; }
         private Vector3 _origPos, _targetPos;
-    
+
+        private void Start()
+        {
+            audioManager = GetComponent<AudioManager>(); //audioManager.Play("Portal");           
+        }
+
         public void Move(Vector3 playerPos)
         {
             if (IsMoving) return;
@@ -68,8 +76,10 @@ namespace Enemies
 
             _origPos = transform.position;
             _targetPos = _origPos + direction;
-        
-            while(elapsedTime < TurnManager.Instance.unitTimeToMove)
+
+            audioManager.Play("Moving");
+
+            while (elapsedTime < TurnManager.Instance.unitTimeToMove)
             {
                 transform.position = Vector3.Lerp(_origPos, _targetPos, (elapsedTime / TurnManager.Instance.unitTimeToMove));
                 elapsedTime += Time.deltaTime;

@@ -3,6 +3,7 @@ using Enemies;
 using Items;
 using Maps;
 using Player;
+using Audio;
 using UnityEngine;
 using Grid = Maps.Grid<Maps.GridCell<bool>>;
 
@@ -27,6 +28,8 @@ namespace Managers
         }
 
         #endregion
+
+        [HideInInspector] public AudioManager audioManager;
 
         [Header("Prefabs")] public GameObject playerPrefab;
         public GameObject chaserPrefab;
@@ -84,6 +87,9 @@ namespace Managers
             CurrentArmorUpgrades = 0;
             _spawnedTrapsAndCoins = new List<GameObject>();
             StartLevel();
+
+            audioManager = GetComponent<AudioManager>();
+            audioManager.Play("Music");
         }
 
         private void StartLevel()

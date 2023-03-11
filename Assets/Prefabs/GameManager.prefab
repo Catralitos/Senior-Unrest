@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4139482379852960799}
   - component: {fileID: 3188885416419527588}
   - component: {fileID: 1565499930}
+  - component: {fileID: 1407554710401441459}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -125,3 +126,23 @@ MonoBehaviour:
   turnsForSleepDrop: 10
   gremlinDamage: 5
   sleepDamage: 5
+  portalInMap: {fileID: 0}
+--- !u!114 &1407554710401441459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3188885416419527589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f791d31bbabdb6840a27c4bbf99f9cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Music
+    clip: {fileID: 8300000, guid: 36a85bd5bbd83134181d3f512fa9a613, type: 3}
+    volume: 0.226
+    pitch: 0.89
+    loop: 1
+    source: {fileID: 0}
