@@ -51,7 +51,7 @@ namespace UI
             int currentGold = PlayerEntity.Instance.inventory.currentGold;
             currentCoins.text = currentGold.ToString();
             buyCoffee.interactable = currentGold >= GameManager.Instance.coffeePrice && 
-                                     PlayerEntity.Instance.health.currentHealth == PlayerEntity.Instance.health.maxHealth;
+                                     PlayerEntity.Instance.health.currentHealth < PlayerEntity.Instance.health.maxHealth;
             buyTrap.interactable = currentGold >= GameManager.Instance.trapPrice && 
                                    PlayerEntity.Instance.traps.CurrentAmountOfTraps() < PlayerEntity.Instance.traps.trapSlots;
             buyPills.interactable = currentGold >= GameManager.Instance.pillsPrice;
@@ -59,11 +59,16 @@ namespace UI
                                     && GameManager.Instance.CurrentArmorUpgrades <  GameManager.Instance.armorDamageDecreasePercentage.Length;
             buyEnergy.interactable = currentGold >= GameManager.Instance.energyPrice;
             coffeeDescription.text = "Restores " + (GameManager.Instance.coffeeRecoveryPercentage * 100) +"% of your max energy.";
-            if (buyArmor.interactable)
+
+            if (GameManager.Instance.CurrentArmorUpgrades < GameManager.Instance.armorDamageDecreasePercentage.Length)
             {
-                armorDescription.text = "Reduces gremlin damage to " +
-                                        (GameManager.Instance.armorDamageDecreasePercentage[
+                armorDescription.text = "Reduces gremlin damage by " +
+                                        (100 - GameManager.Instance.armorDamageDecreasePercentage[
                                             GameManager.Instance.CurrentArmorUpgrades + 1] * 100) + "%.";
+            }
+            else
+            {
+                armorDescription.text = "No more armor available.";
             }
 
             energyDescription.text = "Increases the number of turns before becoming sleepier by " +
