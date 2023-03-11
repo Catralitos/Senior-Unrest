@@ -5,18 +5,26 @@ using System.Linq;
 using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Audio;
 
 namespace Enemies
 {
     public class Gremlin : MonoBehaviour
     {
-    
+
+        [HideInInspector] public AudioManager audioManager;
+
         public bool chaser;
         public LayerMask obstacles;
     
         public bool IsMoving { get; private set; }
         private Vector3 _origPos, _targetPos;
-    
+
+        private void Start()
+        {
+            audioManager = GetComponent<AudioManager>();            
+        }
+
         public void Move(Vector3 playerPos)
         {
             if (IsMoving) return;

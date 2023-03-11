@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5363594163669928817}
   - component: {fileID: 5363594163669928718}
   - component: {fileID: 2846625301869502002}
+  - component: {fileID: -826211645560854970}
   m_Layer: 6
   m_Name: Chaser
   m_TagString: Untagged
@@ -171,3 +172,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &-826211645560854970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5363594163669928714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f791d31bbabdb6840a27c4bbf99f9cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Attack
+    clip: {fileID: 8300000, guid: 2bda2a3c2b14e534093cd0326c80808b, type: 3}
+    volume: 0.089
+    pitch: 1.19
+    loop: 0
+    source: {fileID: 0}
+  - name: Caught
+    clip: {fileID: 8300000, guid: 6bf30453907dd8a40897e260992db33e, type: 3}
+    volume: 0.135
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Moving
+    clip: {fileID: 8300000, guid: f93864ed20d5dc546bbcfe36bb30193c, type: 3}
+    volume: 0.188
+    pitch: 0.61
+    loop: 0
+    source: {fileID: 0}
