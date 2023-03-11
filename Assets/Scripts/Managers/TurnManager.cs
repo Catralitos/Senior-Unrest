@@ -38,7 +38,7 @@ namespace Managers
         public int gremlinDamage;
         public int sleepDamage;
     
-        private int _turnsBeforeSleepDrop;
+        [HideInInspector] public int turnsBeforeSleepDrop;
         private List<Gremlin> _enemiesInMap;
         private List<Trap> _trapsInMap;
         [HideInInspector] public EndPortal portalInMap;
@@ -109,10 +109,11 @@ namespace Managers
             }
          
             _currentTurn++;
-            if (_currentTurn == turnsForSleepDrop)
+            turnsBeforeSleepDrop++;
+            if (turnsBeforeSleepDrop == turnsForSleepDrop)
             {
                 PlayerEntity.Instance.health.DealDamage(sleepDamage);
-                _currentTurn = 0;
+                turnsBeforeSleepDrop = 0;
             }
             
             if (_enemiesInMap.Count==0 && portalInMap == null) GameManager.Instance.SpawnEndPortal();
