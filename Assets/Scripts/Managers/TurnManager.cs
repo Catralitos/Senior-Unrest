@@ -127,7 +127,7 @@ namespace Managers
             if (_enemiesInMap.Count == 0 && portalInMap == null)
             {
                 GameManager.Instance.SpawnEndPortal();
-                PlayerHUD.Instance.AddMessage("The level exit as spawned!");
+                PlayerHUD.Instance.AddMessage("The level exit has spawned!");
             }
 
             if (portalInMap != null)

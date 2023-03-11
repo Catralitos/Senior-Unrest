@@ -22,7 +22,7 @@ namespace Enemies
 
         private void Start()
         {
-            audioManager = GetComponent<AudioManager>(); //audioManager.Play("Portal");           
+            audioManager = GetComponent<AudioManager>(); 
         }
 
         public void Move(Vector3 playerPos)

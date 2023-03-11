@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Managers;
 using TMPro;
@@ -17,7 +16,7 @@ namespace Player
         public TextMeshProUGUI turnsLeftText;
 
         public List<TextMeshProUGUI> logMessages;
-        private Queue<String> logQueue;
+        private Queue<string> _logQueue;
         private bool[] _filledSlots;
         
         #region SingleTon
@@ -41,7 +40,7 @@ namespace Player
         private void Start()
         {
 
-            logQueue = new Queue<string>();
+            _logQueue = new Queue<string>();
 
             foreach (TextMeshProUGUI text in logMessages)
             {
@@ -68,12 +67,12 @@ namespace Player
         }
 
         public void AddMessage(string newMessage) {
-            logQueue.Enqueue("Turn " + TurnManager.Instance.currentTurn+ ": " + newMessage);
-            if (logQueue.ToArray().Length > logMessages.Count)
+            _logQueue.Enqueue("Turn " + TurnManager.Instance.currentTurn+ ": " + newMessage);
+            if (_logQueue.ToArray().Length > logMessages.Count)
             {
-                logQueue.Dequeue();
+                _logQueue.Dequeue();
             }
-            string[] messages = logQueue.ToArray();
+            string[] messages = _logQueue.ToArray();
             for (int i = 0; i < messages.Length; i++)
             {
                 logMessages[i].text = messages[i];

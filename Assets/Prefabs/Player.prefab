@@ -276,14 +276,14 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Moving
-    clip: {fileID: 8300000, guid: f93864ed20d5dc546bbcfe36bb30193c, type: 3}
-    volume: 0.2
+    clip: {fileID: 8300000, guid: 5d7cad2bec6857a45b53240536937244, type: 3}
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Damage
-    clip: {fileID: 8300000, guid: 6bf30453907dd8a40897e260992db33e, type: 3}
-    volume: 0.2
+    clip: {fileID: 8300000, guid: c450d5772ad1570488217f5a9cad1257, type: 3}
+    volume: 1
     pitch: 1.66
     loop: 0
     source: {fileID: 0}

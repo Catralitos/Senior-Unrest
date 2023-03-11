@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fd2bdd45f0461b42a5ada05327b3323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 0}
   chaser: 1
   obstacles:
     serializedVersion: 2
@@ -198,8 +199,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Moving
-    clip: {fileID: 8300000, guid: f93864ed20d5dc546bbcfe36bb30193c, type: 3}
-    volume: 0.188
+    clip: {fileID: 8300000, guid: 5d7cad2bec6857a45b53240536937244, type: 3}
+    volume: 0.1
     pitch: 0.61
     loop: 0
     source: {fileID: 0}
