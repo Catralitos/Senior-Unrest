@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8134030168758863792}
   - component: {fileID: 7575167995499279566}
   - component: {fileID: 4212605875066337320}
-  - component: {fileID: 5902251582586480318}
+  - component: {fileID: 2083140699639602406}
   m_Layer: 12
   m_Name: EndPortal
   m_TagString: Untagged
@@ -205,7 +205,7 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
---- !u!95 &5902251582586480318
+--- !u!95 &2083140699639602406
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ Animator:
   m_GameObject: {fileID: 8332439692040450383}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1e1fd723c85647140a62d66bed9bd6f1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 02fa52dff056e6444a7f1c417a45c854, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
