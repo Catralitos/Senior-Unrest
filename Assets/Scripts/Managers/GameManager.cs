@@ -63,13 +63,12 @@ namespace Managers
         public int energyRoundsIncrease;
         
         public int CurrentArmorUpgrades { get; private set; }
-        private int _currentPillsUpgrades;
 
         [Header("UI Elements")] public GameObject hudUI;
         public GameObject shopUI;
         public bool ShopIsOpen { get; private set; }
 
-        private int _currentLevel;
+        public int CurrentLevel { get; private set; }
         private int _currentWidth;
         private int _currentHeight;
         private int _currentCellsToRemove;
@@ -80,7 +79,7 @@ namespace Managers
         private void Start()
         {
             _atticGenerator = GetComponent<AtticGenerator>();
-            _currentLevel = 1;
+            CurrentLevel = 1;
             _currentWidth = startingWidth;
             _currentHeight = startingHeight;
             _currentCellsToRemove = startingCellsToRemove;
@@ -115,7 +114,7 @@ namespace Managers
             }
 
             int chasersSpawned = 0, runnersSpawned = 0, trapsSpawned = 0, coinsSpawned = 0;
-            while (chasersSpawned < gremlinsList[_currentLevel-1].y)
+            while (chasersSpawned < gremlinsList[CurrentLevel-1].y)
             {
                 int randomPosition = Random.Range(0,g.Cells.Length);
                 GridCell<bool> cell = g.Get(randomPosition);
@@ -128,7 +127,7 @@ namespace Managers
                     chasersSpawned++;
                 }
             }
-            while (runnersSpawned < gremlinsList[_currentLevel-1].x)
+            while (runnersSpawned < gremlinsList[CurrentLevel-1].x)
             {
                 int randomPosition = Random.Range(0,g.Cells.Length);
                 GridCell<bool> cell = g.Get(randomPosition);
@@ -142,7 +141,7 @@ namespace Managers
                 }
             }
 
-            while (trapsSpawned < gremlinsList[_currentLevel-1].y + 1)
+            while (trapsSpawned < gremlinsList[CurrentLevel-1].y + 1)
             {
                 int randomPosition = Random.Range(0,g.Cells.Length);
                 GridCell<bool> cell = g.Get(randomPosition);
@@ -157,7 +156,7 @@ namespace Managers
                 }
             }
             
-            while (coinsSpawned < Mathf.Floor(gremlinsList[_currentLevel-1].x + 1.5f * gremlinsList[_currentLevel-1].y))
+            while (coinsSpawned < Mathf.Floor(gremlinsList[CurrentLevel-1].x + 1.5f * gremlinsList[CurrentLevel-1].y))
             {
                 int randomPosition = Random.Range(0,g.Cells.Length);
                 GridCell<bool> cell = g.Get(randomPosition);
@@ -172,13 +171,8 @@ namespace Managers
                 }
             }
 
-            for (int i = 0; i < _currentPillsUpgrades; i++)
-            {
-                TurnManager.Instance.RemoveRandomGremlin();
-            }
-
-            _currentLevel++;
-            if (_currentLevel - 1 % turnsToIncrease == 0)
+            CurrentLevel++;
+            if (CurrentLevel - 1 % turnsToIncrease == 0)
             {
                 _currentWidth += widthIncrease;
                 _currentHeight += heightIncrease;
@@ -205,7 +199,6 @@ namespace Managers
                 }
             }
             _spawnedTrapsAndCoins.Clear();
-            _currentPillsUpgrades = 0;
             PlayerEntity.Instance.traps.ResetTraps();
             hudUI.SetActive(false);
             shopUI.SetActive(true);
@@ -238,7 +231,7 @@ namespace Managers
         public void BuyPills()
         {
             PlayerEntity.Instance.inventory.SpendGold(pillsPrice);
-            _currentPillsUpgrades++;
+            TurnManager.Instance.RemoveRandomGremlin();
         }
 
         public void BuyArmor()

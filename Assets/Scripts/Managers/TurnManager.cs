@@ -65,10 +65,16 @@ namespace Managers
 
         public void RemoveRandomGremlin()
         {
+            if (GetNumberOfGremlins() == 0) return;
             int randomIndex = Random.Range(0, _enemiesInMap.Count);
             Gremlin g = _enemiesInMap[randomIndex];
             _enemiesInMap.Remove(g);
             Destroy(g.gameObject);
+        }
+
+        public int GetNumberOfGremlins()
+        {
+            return _enemiesInMap.Count;
         }
     
         public void ProcessTurn(Vector3 playerPos)

@@ -54,7 +54,7 @@ namespace UI
                                      PlayerEntity.Instance.health.currentHealth < PlayerEntity.Instance.health.maxHealth;
             buyTrap.interactable = currentGold >= GameManager.Instance.trapPrice && 
                                    PlayerEntity.Instance.traps.CurrentAmountOfTraps() < PlayerEntity.Instance.traps.trapSlots;
-            buyPills.interactable = currentGold >= GameManager.Instance.pillsPrice;
+            buyPills.interactable = currentGold >= GameManager.Instance.pillsPrice && TurnManager.Instance.GetNumberOfGremlins() > 0;
             buyArmor.interactable = currentGold >= GameManager.Instance.armorPrice 
                                     && GameManager.Instance.CurrentArmorUpgrades <  GameManager.Instance.armorDamageDecreasePercentage.Length - 1;
             buyEnergy.interactable = currentGold >= GameManager.Instance.energyPrice;

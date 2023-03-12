@@ -1619,22 +1619,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Granny has to go to sleep but the Gremlins are keeping her up! She''s
-    gonna need to catch them all before she falls asleep and is at the mercy of the
-    little critters.
-
-    To do so, she will need to catch them all in each level.
-    Move around using WASD. Some gremlins will chase you while others will run away
-    from you.
-
-    All gremlins are susceptible to traps, but you can catch runners
-    if you are next to them. Though chasers will make you more tired if you touch
-    them. You can pick up and drop up to 5 traps. Just press E on a cell with a trap
-    to pick it up, and E again on an empty one to lay it down.
-
-    Throughout each
-    level there is gold that you can collect in order to purchase useful items and
-    upgrades between each stage.'
+  m_text: "Granny has to go to sleep but the Gremlins are keeping her up! She's gonna
+    need to catch them all before she falls asleep and is at the mercy of the little
+    critters.\nTo do so, she will need to catch them all in each level. Move around
+    using WASD. Some gremlins will chase you while others will run away from you.\nAll
+    gremlins are susceptible to traps, but you can catch runners if you are next
+    to them, by pressing the SPACE BAR. Though chasers will make you more tired if
+    you touch them. \nYou can pick up and drop up to 5 traps. Just press E on a cell
+    with a trap to pick it up, and E again on an empty one to lay it down. Though
+    they reset each level.\nThroughout each level there is gold that you can collect
+    in order to purchase useful items and upgrades between each stage."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 822a667321318da4e92f4b24d2356e02, type: 2}
   m_sharedMaterial: {fileID: -7788576324347210513, guid: 822a667321318da4e92f4b24d2356e02, type: 2}
@@ -1661,7 +1655,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53
+  m_fontSize: 52.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

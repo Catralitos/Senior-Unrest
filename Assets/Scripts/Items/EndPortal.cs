@@ -3,6 +3,7 @@ using Managers;
 using Player;
 using UnityEngine;
 using Audio;
+using UnityEngine.SceneManagement;
 
 namespace Items
 {
@@ -24,7 +25,15 @@ namespace Items
             if (player.HasLayer(col.gameObject.layer))
             {
                 audioManager.Play("enterPortal");
-                GameManager.Instance.OpenShop();
+                if (GameManager.Instance.CurrentLevel < GameManager.Instance.gremlinsList.Count)
+                {
+                    GameManager.Instance.OpenShop();
+                }
+                else
+                {
+                    SceneManager.LoadScene(2);
+                }
+
                 Destroy(gameObject);             
             }
         }
