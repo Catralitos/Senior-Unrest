@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315d743d0eaf39147951f79a7f838edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageables:
     serializedVersion: 2
@@ -285,5 +285,11 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c450d5772ad1570488217f5a9cad1257, type: 3}
     volume: 1
     pitch: 1.66
+    loop: 0
+    source: {fileID: 0}
+  - name: Coin
+    clip: {fileID: 8300000, guid: 3f1a8e84b07d9c54ebfa0b7c0b919c62, type: 3}
+    volume: 0.4
+    pitch: 1
     loop: 0
     source: {fileID: 0}

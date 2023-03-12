@@ -1,3 +1,4 @@
+using Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,11 +10,14 @@ namespace UI
     {
         public Button replayButton;
         public Button exitButton;
+        private AudioManager _audioManager;
 
         private void Start()
         {
             replayButton.onClick.AddListener(ReplayGame);
             exitButton.onClick.AddListener(ExitGame);
+            _audioManager = GetComponent<AudioManager>();
+            _audioManager.Play("MenuMusic");
         }
 
         private static void ReplayGame()

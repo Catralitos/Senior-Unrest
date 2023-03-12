@@ -56,11 +56,11 @@ namespace UI
                                    PlayerEntity.Instance.traps.CurrentAmountOfTraps() < PlayerEntity.Instance.traps.trapSlots;
             buyPills.interactable = currentGold >= GameManager.Instance.pillsPrice;
             buyArmor.interactable = currentGold >= GameManager.Instance.armorPrice 
-                                    && GameManager.Instance.CurrentArmorUpgrades <  GameManager.Instance.armorDamageDecreasePercentage.Length;
+                                    && GameManager.Instance.CurrentArmorUpgrades <  GameManager.Instance.armorDamageDecreasePercentage.Length - 1;
             buyEnergy.interactable = currentGold >= GameManager.Instance.energyPrice;
             coffeeDescription.text = "Restores " + (GameManager.Instance.coffeeRecoveryPercentage * 100) +"% of your max energy.";
 
-            if (GameManager.Instance.CurrentArmorUpgrades < GameManager.Instance.armorDamageDecreasePercentage.Length)
+            if (GameManager.Instance.CurrentArmorUpgrades < GameManager.Instance.armorDamageDecreasePercentage.Length - 1)
             {
                 armorDescription.text = "Reduces gremlin damage by " +
                                         (100 - GameManager.Instance.armorDamageDecreasePercentage[
@@ -91,9 +91,12 @@ namespace UI
             GameManager.Instance.BuyPills();
         }
 
-        private static void BuyArmor()
+        private void BuyArmor()
         {
             GameManager.Instance.BuyArmor();
+            armorDescription.text = "Reduces gremlin damage by " +
+                                    (100 - GameManager.Instance.armorDamageDecreasePercentage[
+                                        GameManager.Instance.CurrentArmorUpgrades + 1] * 100) + "%.";
         }
 
         private static void BuyEnergy()

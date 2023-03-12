@@ -1,4 +1,4 @@
-using System;
+using Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +16,8 @@ namespace UI
         [Header("Screens")] 
         public GameObject titleScreen;
         public GameObject tutorialScreen;
+        
+        private AudioManager _audioManager;
 
         private void Start()
         {
@@ -23,6 +25,8 @@ namespace UI
             tutorialButton.onClick.AddListener(ShowTutorial);
             backButton.onClick.AddListener(ShowTitleScreen);
             exitButton.onClick.AddListener(ExitGame);
+            _audioManager = GetComponent<AudioManager>();
+            _audioManager.Play("MenuMusic");
         }
 
         private void StartGame()

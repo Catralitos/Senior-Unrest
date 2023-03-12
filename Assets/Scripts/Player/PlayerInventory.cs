@@ -18,6 +18,7 @@ namespace Player
         public void IncreaseGold(int value)
         {
             currentGold += value;
+            PlayerEntity.Instance.audioManager.Play("Coin");
         }
 
         public void SpendGold(int value)
