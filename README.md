@@ -9,7 +9,9 @@ This game was developed in Unity over a week as part of the 7 Day Roguelike Chal
 It features grid based movement, a turn based system, procedural generation and upgrade mechanics.
 
 Programming: Carlos Marques
+
 Design: Pedro Moço
+
 Art: Nuno Baptista
 
 The game is playable at https://catralitos.itch.io/senior-unrest
