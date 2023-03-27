@@ -5,55 +5,81 @@ using UnityEngine.SceneManagement;
 
 namespace Player
 {
+    /// <summary>
+    /// The class that manages the player's health.
+    /// </summary>
+    /// <seealso cref="UnityEngine.MonoBehaviour" />
     public class PlayerHealth : MonoBehaviour
     {
-
+        /// <summary>
+        /// The maximum health
+        /// </summary>
         public int maxHealth;
+        /// <summary>
+        /// The current health
+        /// </summary>
         [HideInInspector] public int currentHealth;
 
+        /// <summary>
+        /// The layers of objects that damage the player
+        /// </summary>
         public LayerMask damageables;
 
+        /// <summary>
+        /// Starts this instance.
+        /// </summary>
         private void Start()
         {
             currentHealth = maxHealth;
         }
 
+        /// <summary>
+        /// Checks if the player has damaging entities around it
+        /// </summary>
+        /// <returns>The number of damaging entities in contact with the player</returns>
         public int CheckDamage()
         {
-            int c = 0;
-            
+            var c = 0;
+
             Vector3[] fourDirections = { Vector3.up, Vector3.down, Vector3.left, Vector3.right };
 
-            foreach (Vector3 direction in fourDirections)
-            {
-                if (Physics2D.OverlapBox(transform.position + direction, new Vector2(0.5f,0.5f), 0, damageables) != null)
-                {
+            foreach (var direction in fourDirections)
+                if (Physics2D.OverlapBox(transform.position + direction, new Vector2(0.5f, 0.5f), 0, damageables) !=
+                    null)
                     c++;
-                }
-            }
 
             return c;
         }
 
+        /// <summary>
+        /// Deals damage to the player.
+        /// </summary>
+        /// <param name="damage">The amount of damage.</param>
         public void DealDamage(int damage)
         {
             PlayerEntity.Instance.audioManager.Play("Damage");
-            currentHealth = Math.Clamp(Mathf.RoundToInt(currentHealth - (damage*GameManager.Instance.armorDamageDecreasePercentage[GameManager.Instance.CurrentArmorUpgrades])), 0, maxHealth);
+            currentHealth =
+                Math.Clamp(
+                    Mathf.RoundToInt(currentHealth - damage *
+                        GameManager.Instance.armorDamageDecreasePercentage[GameManager.Instance.CurrentArmorUpgrades]),
+                    0, maxHealth);
             if (currentHealth == 0)
-            {
-                /*Invoke("Die", 3);
-                PlayerEntity.Instance.audioManager.Play("Damage");
-                //play animation of grama falling?*/
                 Die();
-            }
         }
 
+        /// <summary>
+        /// Restores some health.
+        /// </summary>
+        /// <param name="heal">The amount to restore.</param>
         public void RestoreHealth(int heal)
         {
             currentHealth = Math.Clamp(currentHealth + heal, 0, maxHealth);
         }
-        
 
+        /// <summary>
+        /// Ends the game.
+        /// Loads game over scene.
+        /// </summary>
         private static void Die()
         {
             SceneManager.LoadScene(3);

@@ -3,51 +3,29 @@ using UnityEngine;
 
 namespace Audio
 {
+    /// <summary>
+    /// A class that allows gameobjects to play sounds
+    /// </summary>
+    /// <seealso cref="UnityEngine.MonoBehaviour" />
     public class AudioManager : MonoBehaviour
     {
+        /// <summary>
+        /// List of sounds this Game Object will play
+        /// </summary>
         public Sound[] sounds;
 
-        private Sound _intro;
-        private Sound _loop;
-
-        /*
-        #region SingleTon
-        public static AudioManager Instance { get; private set; }
-
+        /// <summary>
+        /// When the Game Object awakes, adds an AudioSource for each sound.
+        /// </summary>
         private void Awake()
         {
-            // Needed if we want the audio manager to persist through scenes
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            DontDestroyOnLoad(gameObject);
-
-            // Add audio source components
-            foreach (Sound s in sounds)
-            {
-                s.SetSource(gameObject.AddComponent<AudioSource>());
-            }
-        }
-        
-
-        #endregion
-        */
-
-        private void Awake()
-        {
-            foreach (Sound s in sounds)
-            {
-                s.SetSource(gameObject.AddComponent<AudioSource>());
-            }        
+            foreach (var s in sounds) s.SetSource(gameObject.AddComponent<AudioSource>());
         }
 
+        /// <summary>
+        /// Play a sound
+        /// </summary>
+        /// <param name="soundName">The name of the sound to play</param>
         public void Play(string soundName)
         {
             var s = Array.Find(sounds, sound => sound.name == soundName);
@@ -61,6 +39,10 @@ namespace Audio
             s.Play();
         }
 
+        /// <summary>
+        /// Stop playing a sound
+        /// </summary>
+        /// <param name="soundName">The name of the sound to stop</param>
         public void Stop(string soundName)
         {
             var s = Array.Find(sounds, sound => sound.name == soundName);
@@ -69,44 +51,19 @@ namespace Audio
                 Debug.LogWarning("Sound " + soundName + " not found!");
                 return;
             }
+
             if (!s.IsPlaying()) return;
             s.Stop();
         }
 
-        public void SetMusic(string introName, string loopName)
-        {
-            if (_intro != null && introName == _intro.name && _loop != null && loopName == _loop.name)
-            {
-                Debug.Log(introName + "/" + loopName + " already playing, ignoring.");
-                return;
-            }
-
-            if (_intro != null)
-                _intro.Stop();
-            if (_loop != null)
-                _loop.Stop();
-
-            _intro = Array.Find(sounds, sound => sound.name == introName);
-            if (_intro == null)
-            {
-                Debug.LogWarning("Sound " + introName + " not found!");
-                return;
-            }
-
-            _loop = Array.Find(sounds, sound => sound.name == loopName);
-            if (_intro == null)
-            {
-                Debug.LogWarning("Sound " + loopName + " not found!");
-                return;
-            }
-
-            var introDuration = _intro.clip.length;
-            var startTime = AudioSettings.dspTime + 0.2;
-            _intro.PlayScheduled(startTime);
-            _loop.PlayScheduled(startTime + introDuration);
-        }
-
-        public bool IsPlaying(String soundName)
+        /// <summary>
+        /// Determines whether the specified sound name is playing.
+        /// </summary>
+        /// <param name="soundName">Name of the sound.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified sound name is playing; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsPlaying(string soundName)
         {
             var s = Array.Find(sounds, sound => sound.name == soundName);
             if (s != null) return s.IsPlaying();

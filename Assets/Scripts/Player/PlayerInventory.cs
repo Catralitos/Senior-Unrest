@@ -2,38 +2,42 @@ using UnityEngine;
 
 namespace Player
 {
+    /// <summary>
+    /// Manages the player's gold 
+    /// </summary>
+    /// <seealso cref="UnityEngine.MonoBehaviour" />
     public class PlayerInventory : MonoBehaviour
     {
-        public int currentGold { get; private set; }
-        public int currentArmor { get; private set; }
-        public int currentEnergy { get; private set; }
-
+        /// <summary>
+        /// Gets the current gold.
+        /// </summary>
+        /// <value>
+        /// The current gold.
+        /// </value>
+        public int CurrentGold { get; private set; }
+        
         private void Start()
         {
-            currentGold = 0;
-            currentArmor = 0;
-            currentEnergy = 0;
+            CurrentGold = 0;
         }
 
+        /// <summary>
+        /// Increases the player's gold.
+        /// </summary>
+        /// <param name="value">The value.</param>
         public void IncreaseGold(int value)
         {
-            currentGold += value;
+            CurrentGold += value;
             PlayerEntity.Instance.audioManager.Play("Coin");
         }
 
+        /// <summary>
+        /// Spends the gold.
+        /// </summary>
+        /// <param name="value">The value.</param>
         public void SpendGold(int value)
         {
-            currentGold -= value;
-        }
-
-        public void IncreaseArmor(int value)
-        {
-            currentArmor += value;
-        }
-
-        public void IncreaseCoffee(int value)
-        {
-            currentEnergy += value;
+            CurrentGold -= value;
         }
     }
 }
